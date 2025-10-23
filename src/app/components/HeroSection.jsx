@@ -11,7 +11,7 @@ function HeroSection() {
           Explora y visualiza modelos 3D de mobiliario con facilidad
         </p>
 
-        <button className="bg-[#e53733] text-white font-medium py-2 px-4 rounded-full cursor-pointer hover:bg-red-600 transition">
+        <button className="bg-red-jamar text-white font-medium py-2 px-4 rounded-full cursor-pointer hover:bg-red-600 transition">
           Ver biblioteca
         </button>
       </div>

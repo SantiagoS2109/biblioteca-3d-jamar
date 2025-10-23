@@ -1,39 +1,75 @@
 "use client";
 
 import { useState } from "react";
+import { useFetchModelos } from "../hooks/useFetchModelos";
+import CardModelo from "./CardModelo";
+import NavButtonsBiblioteca from "./NavButtonsBiblioteca";
+import Spinner from "./Spinner";
 
 function BibliotecaSection() {
   const [piso, setPiso] = useState(1);
 
+  const { modelos, loading } = useFetchModelos(piso);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const descripcionPiso = {
+    1: "Modelos social, dormitorio, sofás, comedores y más.",
+    2: "Mesas de centro, butacas, paneles, puff, reclinables.",
+    3: "Alfombras, cuadros, cojines, lámparas y accesorios.",
+  };
+
   return (
-    <section className="w-full flex flex-col items-center py-8 px-4 lg:px-64 bg-red-300">
+    <section className="w-full flex flex-col items-center py-8 px-4 lg:px-64">
       <h2 className="text-2xl font-medium mb-8 lg:text-4xl">Biblioteca</h2>
 
-      <div className="grid grid-cols-3 w-full gap-4 mb-8 lg:grid-cols-6">
-        <button
-          onClick={() => setPiso(1)}
-          className="bg-white text-black font-medium py-2 px-4 rounded-full cursor-pointer hover:bg-gray-100 transition"
-        >
-          Piso 1
-        </button>
-        <button
-          onClick={() => setPiso(2)}
-          className="bg-white text-black font-medium py-2 px-4 rounded-full cursor-pointer hover:bg-gray-100 transition"
-        >
-          Piso 2
-        </button>
-        <button
-          onClick={() => setPiso(3)}
-          className="bg-white text-black font-medium py-2 px-4 rounded-full cursor-pointer hover:bg-gray-100 transition"
-        >
-          Piso 3
-        </button>
-      </div>
+      <NavButtonsBiblioteca piso={piso} setPiso={setPiso} />
 
-      <div className="grid grid-cols-2 w-full gap-4 mb-8 lg:grid-cols-6">
-        {/* Aquí se mapearían los modelos 3D basados en el estado 'piso' */}
-        <h2>Piso {piso}</h2>
-      </div>
+      {/* Aquí se mapearían los modelos 3D basados en el estado 'piso' */}
+
+      {loading ? (
+        <div className="flex items-center justify-center w-full mt-24">
+          <Spinner />
+        </div>
+      ) : (
+        <>
+          <div>
+            <h3 className="text-xl font-medium mb-4">
+              Piso {piso} - {descripcionPiso[piso]}
+            </h3>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Buscar modelo..."
+                className="border-2 border-gray-300 p-4 rounded-full w-full mb-8"
+                onChange={(e) => setSearchTerm(e.target.value)}
+                value={searchTerm}
+              />
+              {searchTerm && (
+                <button
+                  className="absolute right-6 top-4.5 transform text-gray-500 hover:text-gray-800 cursor-pointer"
+                  onClick={() => setSearchTerm("")}
+                >
+                  X
+                </button>
+              )}
+            </div>
+          </div>
+          <div className="grid grid-cols-2 w-full gap-4 mb-8 md:grid-cols-4 lg:grid-cols-5">
+            {modelos
+              .filter((modelo) =>
+                modelo.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((modelo) => (
+                <CardModelo key={modelo.id} modelo={modelo} />
+              ))}
+            {modelos.length === 0 && (
+              <p className="col-span-full text-center text-gray-500 mt-8">
+                No hay modelos disponibles en este piso.
+              </p>
+            )}
+          </div>
+        </>
+      )}
     </section>
   );
 }
