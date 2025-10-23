@@ -1,14 +1,9 @@
 "use client";
 
-import { getModelos } from "@/services/notion";
-import { useState, useEffect } from "react";
-
-const modelos = await getModelos();
+import { useState } from "react";
 
 function BibliotecaSection() {
   const [piso, setPiso] = useState(1);
-
-  console.log(modelos);
 
   return (
     <section className="w-full flex flex-col items-center py-8 px-4 lg:px-64 bg-red-300">
