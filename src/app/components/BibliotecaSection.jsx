@@ -19,7 +19,10 @@ function BibliotecaSection() {
   };
 
   return (
-    <section className="w-full flex flex-col items-center py-8 px-4 lg:px-64">
+    <section
+      id="biblioteca"
+      className="w-full flex flex-col items-center py-8 px-4 lg:px-64"
+    >
       <h2 className="text-2xl font-medium mb-8 lg:text-4xl">Biblioteca</h2>
 
       <NavButtonsBiblioteca piso={piso} setPiso={setPiso} />
@@ -40,7 +43,7 @@ function BibliotecaSection() {
               <input
                 type="text"
                 placeholder="Buscar modelo..."
-                className="border-2 border-gray-300 p-4 rounded-full w-full mb-8"
+                className="border-2 border-gray-300 p-4 rounded-full w-full mb-8 transition-all duration-300 outline-0 focus:ring-2 focus:ring-offset-2 focus:ring-red-jamar/65 "
                 onChange={(e) => setSearchTerm(e.target.value)}
                 value={searchTerm}
               />

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function HeroSection() {
   return (
     <section className="w-full relative flex items-center p-4 h-[400px] bg-[url('/img/Hero.png')] bg-cover bg-center rounded-b-4xl shadow-xl lg:px-64 lg:h-[600px] mb-4">
@@ -11,9 +13,12 @@ function HeroSection() {
           Explora y visualiza modelos 3D de mobiliario con facilidad
         </p>
 
-        <button className="bg-red-jamar text-white font-medium py-2 px-4 rounded-full cursor-pointer hover:bg-red-600 transition">
+        <Link
+          href="#biblioteca"
+          className="btn-primario bg-red-jamar text-white"
+        >
           Ver biblioteca
-        </button>
+        </Link>
       </div>
     </section>
   );

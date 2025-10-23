@@ -20,8 +20,8 @@ function Button({ onClick, isActive, children }) {
   return (
     <button
       onClick={onClick}
-      className={`border-2 border-red-jamar text-red-jamar py-2 px-4 rounded-full cursor-pointer hover:bg-red-jamar hover:text-white transition-all duration-300 ${
-        isActive ? "bg-red-jamar text-white" : ""
+      className={`btn-primario text-red-jamar ${
+        isActive ? "text-white bg-red-jamar " : ""
       }`}
     >
       {children}
