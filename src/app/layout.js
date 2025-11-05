@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const geomanist = localFont({
   src: [
@@ -49,7 +50,10 @@ export default function RootLayout({ children }) {
           sizes="<generated>"
         />
       </head>
-      <body className={`${geomanist.className} `}>{children}</body>
+      <body className={`${geomanist.className} `}>
+        <Toaster reverseOrder={false} />
+        {children}
+      </body>
     </html>
   );
 }

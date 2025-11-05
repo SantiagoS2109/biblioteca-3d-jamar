@@ -35,11 +35,11 @@ function BibliotecaSection() {
         </div>
       ) : (
         <>
-          <div>
+          <div className="flex flex-col justify-center items-center mb-8">
             <h3 className="text-xl font-medium mb-4">
               Piso {piso} - {descripcionPiso[piso]}
             </h3>
-            <div className="relative">
+            <div className="relative w-full max-w-xl">
               <input
                 type="text"
                 placeholder="Buscar modelo..."
@@ -55,6 +55,13 @@ function BibliotecaSection() {
                   X
                 </button>
               )}
+            </div>
+
+            <div className="flex justify-center bg-red-400 rounded-2xl py-2 px-4 w-fit">
+              <p className=" text-white">
+                En total hay <span className="font-bold">{modelos.length}</span>{" "}
+                modelos en este piso.
+              </p>
             </div>
           </div>
           <div className="grid grid-cols-2 w-full gap-4 mb-8 md:grid-cols-4 lg:grid-cols-5">
