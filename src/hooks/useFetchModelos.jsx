@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/supabase/supabaseClient";
+import { supabase } from "../lib/supabase/supabaseClient";
 import { useState, useEffect } from "react";
 
 export function useFetchModelos(piso) {
@@ -9,7 +9,7 @@ export function useFetchModelos(piso) {
   useEffect(() => {
     const fetchModelos = async () => {
       const { data, error } = await supabase
-        .from("biblioteca") // Nombre de tu tabla en Supabase
+        .from("biblioteca")
         .select("*")
         .eq("piso", piso);
       if (error) {

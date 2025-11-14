@@ -6,8 +6,7 @@ function CardModelo({ modelo }) {
   return (
     <Link
       className="min-h-[260px] "
-      href={`${modelo.link} `}
-      target="_blank"
+      href={`/producto/${modelo.id}`}
       rel="noopener noreferrer"
     >
       <div className="relative bg-gray-200/70 h-full p-4 rounded-xl transition-all cursor-pointer hover:shadow-lg hover:scale-101">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NavBarSection from "./components/NavBarSection";
+import NavBarSection from "../components/NavBarSection";
 
 function NotFound() {
   return (
