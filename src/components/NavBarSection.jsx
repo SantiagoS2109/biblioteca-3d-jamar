@@ -59,7 +59,7 @@ function NavBarSection() {
           alt="Jamar Logo"
           width={200}
           height={200}
-          className="object-contain"
+          className="w-32 md:w-40 object-contain"
         />
       </Link>
 

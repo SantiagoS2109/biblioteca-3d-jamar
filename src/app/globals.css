@@ -63,7 +63,7 @@ a {
   grid-template-columns: auto 1fr;
   justify-content: space-between;
   gap: 1.2rem;
-  margin-top: 1.8rem;
+  margin-top: 0.6rem;
 }
 .embla__buttons {
   display: grid;

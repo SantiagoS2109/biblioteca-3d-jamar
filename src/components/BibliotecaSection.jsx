@@ -64,7 +64,7 @@ function BibliotecaSection() {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-2 w-full gap-4 mb-8 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 w-full gap-4 mb-8 md:grid-cols-4 2xl:grid-cols-5">
             {modelos
               .filter((modelo) =>
                 modelo.nombre.toLowerCase().includes(searchTerm.toLowerCase())

@@ -29,7 +29,7 @@ const EmblaCarousel = (props) => {
           {slides.map((img) => (
             <div
               key={img.id}
-              className="flex w-full flex-[0_0_100%] items-center justify-center rounded-2xl px-2"
+              className="flex w-full flex-[0_0_100%] items-center justify-center rounded-2xl"
             >
               <Image
                 width={500}
@@ -37,7 +37,7 @@ const EmblaCarousel = (props) => {
                 priority
                 src={img.image}
                 alt={img.title}
-                className="w-full rounded-2xl object-cover"
+                className="w-full rounded-2xl object-contain"
               />
             </div>
           ))}
