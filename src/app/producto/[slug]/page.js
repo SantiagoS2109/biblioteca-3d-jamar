@@ -4,35 +4,25 @@ import Link from "next/link";
 import { use } from "react";
 import { CaretLeftIcon, CubeIcon } from "@phosphor-icons/react/dist/ssr";
 import { useFetchModelosByID } from "../../../hooks/useFetchModelosByID";
+import { useFetchModeloImagenesByID } from "../../../hooks/useFetchModeloImagenesByID";
 import Spinner from "@/components/Spinner";
 import EmblaCarousel from "@/components/EmblaCarousel";
 
 function ProductPage({ params }) {
   const { slug } = use(params);
   const { modelo, loading } = useFetchModelosByID(slug);
+  const { modeloImagenes, loadingImagenes } = useFetchModeloImagenesByID(slug);
 
-  const imgs = [
-    {
-      id: 1,
-      title: "Img 1",
-      image: modelo?.linkImagen,
-    },
-    {
-      id: 2,
-      title: "Img 2",
-      image: modelo?.linkImagen,
-    },
-    {
-      id: 3,
-      title: "Img 3",
-      image: modelo?.linkImagen,
-    },
-  ];
-
-  console.log("Modelo fetched:", modelo);
+  const imgsModelo = modeloImagenes?.map((img) => ({
+    id: img.id,
+    title: "Modelo Image_" + img.orden,
+    image:
+      "https://xadmunjbkvgnhlswupdv.supabase.co/storage/v1/object/public/" +
+      img.path_storage,
+  }));
 
   return (
-    <section id="producto" className="w-full flex flex-col py-8 px-4 lg:px-64">
+    <section id="producto" className="w-full flex flex-col py-8 px-4 lg:px-64 ">
       <Link href="/#biblioteca" className="w-fit">
         <div className="bg-gray-200/60 w-12 h-12 flex items-center justify-center rounded-full text-gray-400 underline">
           <CaretLeftIcon size={30} className="inline" />
@@ -44,11 +34,11 @@ function ProductPage({ params }) {
           <Spinner />
         </div>
       ) : (
-        <section className="md:grid md:grid-cols-2 md:gap-12">
+        <section className="md:grid md:grid-cols-2 md:gap-12 mt-4">
           <div>
-            <div>
-              <EmblaCarousel slides={imgs} options={{ loop: true }} />
-            </div>
+            {!loadingImagenes && (
+              <EmblaCarousel slides={imgsModelo} options={{ loop: true }} />
+            )}
           </div>
 
           <div>

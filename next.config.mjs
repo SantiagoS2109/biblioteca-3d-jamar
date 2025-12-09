@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: "www.jamar.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "xadmunjbkvgnhlswupdv.supabase.co",
+        pathname: "**",
+      },
     ],
   },
 };

@@ -37,7 +37,7 @@ const EmblaCarousel = (props) => {
                 priority
                 src={img.image}
                 alt={img.title}
-                className="w-full rounded-2xl object-contain"
+                className="rounded-2xl object-contain"
               />
             </div>
           ))}

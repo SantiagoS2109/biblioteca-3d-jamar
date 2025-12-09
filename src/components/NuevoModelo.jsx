@@ -61,7 +61,7 @@ function NuevoModelo() {
       </button>
 
       <div
-        className={`fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center transition-opacity duration-300 z-20 ${
+        className={`fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center transition-opacity duration-300 z-50 ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         onClick={() => setIsOpen(false)}
