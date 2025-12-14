@@ -18,7 +18,6 @@ export function useFetchModeloImagenesByID(id) {
       } else {
         setModeloImagenes(data);
         setLoadingImagenes(false);
-        console.log("Fetched modelo images:", data);
       }
     };
     fetchModeloImagenesByID();

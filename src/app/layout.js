@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import NavBarSection from "../components/NavBarSection";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 
 const geomanist = localFont({
   src: [
@@ -52,11 +53,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={`${geomanist.className} `}>
-        <Toaster reverseOrder={false} />
-        <div className="font-sans min-h-screen gap-16 relative">
-          <NavBarSection />
-          {children}
-        </div>
+        <AuthProvider>
+          <Toaster reverseOrder={false} />
+          <div className="font-sans min-h-screen gap-16 relative">
+            {children}
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

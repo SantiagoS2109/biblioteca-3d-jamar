@@ -5,8 +5,11 @@ import { useState } from "react";
 import { useFetchModelos } from "../hooks/useFetchModelos";
 import { supabase } from "../lib/supabase/supabaseClient";
 import toast from "react-hot-toast";
+import { useAuth } from "./auth/AuthProvider";
 
 function ModalImagenes({ onUploaded }) {
+  const { session } = useAuth();
+
   const [isOpen, setIsOpen] = useState(false);
   const { modelos, loading } = useFetchModelos(1);
 
@@ -107,6 +110,10 @@ function ModalImagenes({ onUploaded }) {
     handleUpload();
   }
 
+  if (!session) {
+    return null;
+  }
+
   return (
     <>
       <button
@@ -138,7 +145,7 @@ function ModalImagenes({ onUploaded }) {
               {modelos &&
                 modelos.map((modelo) => (
                   <option key={modelo.id} value={modelo.id}>
-                    {modelo.nombre}
+                    {modelo.codigo} - {modelo.nombre}
                   </option>
                 ))}
             </select>

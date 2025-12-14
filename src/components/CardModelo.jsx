@@ -1,8 +1,17 @@
 import Link from "next/link";
 import Img from "next/image";
 import { LinkBreakIcon } from "@phosphor-icons/react/dist/ssr";
+import { useFetchModeloImagenesByID } from "../hooks/useFetchModeloImagenesByID";
+import Spinner from "./Spinner";
 
 function CardModelo({ modelo }) {
+  const URL =
+    "https://xadmunjbkvgnhlswupdv.supabase.co/storage/v1/object/public/";
+
+  const { modeloImagenes, loadingImagenes } = useFetchModeloImagenesByID(
+    modelo.id
+  );
+
   return (
     <Link
       className="min-h-[260px] "
@@ -10,13 +19,23 @@ function CardModelo({ modelo }) {
       rel="noopener noreferrer"
     >
       <div className="relative bg-gray-200/70 h-full p-4 rounded-xl transition-all cursor-pointer hover:shadow-lg hover:scale-101">
-        <Img
-          src={modelo.linkImagen || "/img/no-encontrado.png"}
-          alt={modelo.nombre}
-          width={200}
-          height={200}
-          className="w-full rounded-md"
-        />
+        {loadingImagenes ? (
+          <Spinner />
+        ) : (
+          <Img
+            src={
+              modeloImagenes?.[0]?.path_storage
+                ? URL + `${modeloImagenes?.[0]?.path_storage}`
+                : "/img/no-encontrado.png"
+            }
+            alt={modelo.nombre}
+            width={200}
+            height={200}
+            className="w-full rounded-md"
+            loading="lazy"
+          />
+        )}
+
         <p className="mt-2 font-bold leading-4.5">{modelo.nombre}</p>
         <p className="mt-2 italic text-red-500">{modelo.codigo}</p>
 

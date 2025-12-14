@@ -4,10 +4,12 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabase/supabaseClient";
 import toast from "react-hot-toast";
 import { CouchIcon } from "@phosphor-icons/react/dist/ssr";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 function NuevoModelo() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { session } = useAuth();
 
+  const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     codigo: "",
     nombre: "",
@@ -50,6 +52,10 @@ function NuevoModelo() {
       });
     }
   };
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <>
