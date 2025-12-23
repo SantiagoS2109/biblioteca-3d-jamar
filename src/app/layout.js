@@ -1,8 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import NavBarSection from "../components/NavBarSection";
 import { AuthProvider } from "@/components/auth/AuthProvider";
+import NavBarWrapper from "@/components/NavBarWrapper";
 
 const geomanist = localFont({
   src: [
@@ -38,6 +38,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <link type="text/css" rel="stylesheet" href="css/lightgallery.css" />
+        <link type="text/css" rel="stylesheet" href="css/lg-zoom.css" />
+        <link type="text/css" rel="stylesheet" href="css/lg-thumbnail.css" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link
           rel="icon"
@@ -56,6 +59,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <Toaster reverseOrder={false} />
           <div className="font-sans min-h-screen gap-16 relative">
+            <NavBarWrapper />
             {children}
           </div>
         </AuthProvider>

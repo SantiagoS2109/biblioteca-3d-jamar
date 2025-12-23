@@ -5,10 +5,10 @@ import { use } from "react";
 import { CubeIcon } from "@phosphor-icons/react/dist/ssr";
 import { useFetchModelosByID } from "../../../hooks/useFetchModelosByID";
 import { useFetchModeloImagenesByID } from "../../../hooks/useFetchModeloImagenesByID";
-import Spinner from "@/components/Spinner";
-import EmblaCarousel from "@/components/EmblaCarousel";
-import NavBarSection from "@/components/NavBarSection";
-import BotonVolver from "@/components/BotonVolver";
+import Spinner from "@/components/UI/Spinner";
+import EmblaCarousel from "@/components/UI/EmblaCarousel";
+import BotonVolver from "@/components/UI/BotonVolver";
+import SectionContainer from "@/components/UI/SectionContainer";
 
 function ProductPage({ params }) {
   const { slug } = use(params);
@@ -24,54 +24,48 @@ function ProductPage({ params }) {
   }));
 
   return (
-    <>
-      <NavBarSection />
-      <section
-        id="producto"
-        className="w-full flex flex-col py-8 px-4 lg:px-64 "
-      >
-        <BotonVolver href="/#biblioteca" />
+    <SectionContainer id="producto">
+      <BotonVolver href="/#biblioteca" />
 
-        {loading ? (
-          <div className="flex items-center justify-center w-full mt-24">
-            <Spinner />
+      {loading ? (
+        <div className="flex items-center justify-center w-full mt-24">
+          <Spinner />
+        </div>
+      ) : (
+        <section className="md:grid md:grid-cols-2 md:gap-12">
+          <div>
+            {!loadingImagenes && (
+              <EmblaCarousel slides={imgsModelo} options={{ loop: true }} />
+            )}
           </div>
-        ) : (
-          <section className="md:grid md:grid-cols-2 md:gap-12 mt-4">
-            <div>
-              {!loadingImagenes && (
-                <EmblaCarousel slides={imgsModelo} options={{ loop: true }} />
-              )}
-            </div>
 
-            <div>
-              <h1 className="text-2xl font-bold mt-8 mb-2">{modelo.nombre}</h1>
-              <div className="flex justify-between items-center mb-6">
-                <p className="text-red-jamar font-medium italic">
-                  {modelo.codigo}
+          <div>
+            <h1 className="text-2xl font-bold mt-8 mb-2">{modelo.nombre}</h1>
+            <div className="flex justify-between items-center mb-6">
+              <p className="text-red-jamar font-medium italic">
+                {modelo.codigo}
+              </p>
+
+              <div className="bg-red-200 px-4 py-1 w-fit rounded-full">
+                <p className="text-red-jamar font-bold text-lg">
+                  Piso {modelo.piso}
                 </p>
-
-                <div className="bg-red-200 px-4 py-1 w-fit rounded-full">
-                  <p className="text-red-jamar font-bold text-lg">
-                    Piso {modelo.piso}
-                  </p>
-                </div>
               </div>
-
-              <Link
-                href={modelo.link}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="bg-red-jamar w-fit h-fit px-3 py-2 flex gap-4 items-center justify-center rounded-lg cursor-pointer hover:bg-red-400 transition-colors duration-300"
-              >
-                <CubeIcon size={40} className="inline text-white" />
-                <p className="font-medium text-white">Descargar modelo</p>
-              </Link>
             </div>
-          </section>
-        )}
-      </section>
-    </>
+
+            <Link
+              href={modelo.link}
+              rel="noopener noreferrer"
+              target="_blank"
+              className="bg-red-jamar w-fit h-fit px-3 py-2 flex gap-4 items-center justify-center rounded-lg cursor-pointer hover:bg-red-400 transition-colors duration-300"
+            >
+              <CubeIcon size={40} className="inline text-white" />
+              <p className="font-medium text-white">Descargar modelo</p>
+            </Link>
+          </div>
+        </section>
+      )}
+    </SectionContainer>
   );
 }
 

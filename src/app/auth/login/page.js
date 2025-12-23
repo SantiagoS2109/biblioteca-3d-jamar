@@ -1,4 +1,4 @@
-import BotonVolver from "@/components/BotonVolver";
+import BotonVolver from "@/components/UI/BotonVolver";
 import Image from "next/image";
 import LoginForm from "@/components/auth/LoginForm";
 

@@ -11,7 +11,7 @@ function ModalImagenes({ onUploaded }) {
   const { session } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
-  const { modelos, loading } = useFetchModelos(1);
+  const { modelos, loading } = useFetchModelos(2);
 
   const [selectedModelId, setSelectedModelId] = useState("");
   const [files, setFiles] = useState([]);

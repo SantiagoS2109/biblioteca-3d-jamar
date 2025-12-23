@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useFetchModelos } from "../hooks/useFetchModelos";
 import CardModelo from "./CardModelo";
 import NavButtonsBiblioteca from "./NavButtonsBiblioteca";
-import Spinner from "./Spinner";
+import Spinner from "./UI/Spinner";
 
 function BibliotecaSection() {
   const [piso, setPiso] = useState(1);

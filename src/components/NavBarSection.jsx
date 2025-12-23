@@ -5,12 +5,15 @@ import Link from "next/link";
 import { ListIcon, UserIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
 import { useState, useEffect } from "react";
 import { useAuth } from "./auth/AuthProvider";
+import { usePathname } from "next/navigation";
 
 function NavBarSection() {
   const { session, isLoading, signOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenLogOut, setIsOpenLogOut] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const pathName = usePathname();
 
   const handleModalToggle = () => {
     setIsOpenModal(!isOpenModal);
@@ -65,7 +68,7 @@ function NavBarSection() {
   return (
     <>
       <nav
-        className={`bg-background supports-[backdrop-filter]:bg-background/80 sticky top-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur transition-shadow duration-300 md:rounded-b-3xl md:px-12 xl:px-24 ${
+        className={`bg-background h-24 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur transition-shadow duration-300 md:rounded-b-3xl md:px-12 xl:px-24 ${
           hasShadow ? "shadow-md" : ""
         }`}
       >
@@ -99,11 +102,19 @@ function NavBarSection() {
           } shadow-md md:static md:translate-y-0 md:items-center md:shadow-none`}
         >
           <ul className="flex flex-col items-center gap-4 md:flex-row md:gap-12 font-medium text-foreground/60 transition">
-            <li className="inline-block hover:text-foreground/100">
-              <Link href="#biblioteca">Biblioteca</Link>
+            <li
+              className={`inline-block hover:text-foreground/100 ${
+                pathName === "/" ? "text-red-jamar/100" : ""
+              }`}
+            >
+              <Link href="/#biblioteca">Biblioteca</Link>
             </li>
-            <li className="inline-block hover:text-foreground/100">
-              <Link href="#modelos-3d">Campañas</Link>
+            <li
+              className={`inline-block hover:text-foreground/100 ${
+                pathName === "/campanas" ? "text-red-jamar/100" : ""
+              }`}
+            >
+              <Link href="/campanas">Campañas</Link>
             </li>
             <li className="inline-block relative">
               {session && session.user ? (

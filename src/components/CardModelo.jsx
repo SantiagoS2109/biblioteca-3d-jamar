@@ -2,7 +2,7 @@ import Link from "next/link";
 import Img from "next/image";
 import { LinkBreakIcon } from "@phosphor-icons/react/dist/ssr";
 import { useFetchModeloImagenesByID } from "../hooks/useFetchModeloImagenesByID";
-import Spinner from "./Spinner";
+import Spinner from "./UI/Spinner";
 
 function CardModelo({ modelo }) {
   const URL =
@@ -20,7 +20,9 @@ function CardModelo({ modelo }) {
     >
       <div className="relative bg-gray-200/70 h-full p-4 rounded-xl transition-all cursor-pointer hover:shadow-lg hover:scale-101">
         {loadingImagenes ? (
-          <Spinner />
+          <div className="flex items-center justify-center">
+            <Spinner />
+          </div>
         ) : (
           <Img
             src={
@@ -36,8 +38,10 @@ function CardModelo({ modelo }) {
           />
         )}
 
-        <p className="mt-2 font-bold leading-4.5">{modelo.nombre}</p>
-        <p className="mt-2 italic text-red-500">{modelo.codigo}</p>
+        <div className="mt-auto">
+          <p className="mt-2 font-bold leading-4.5">{modelo.nombre}</p>
+          <p className="mt-2 italic text-red-500">{modelo.codigo}</p>
+        </div>
 
         {!modelo.link && (
           <div className="absolute w-10 h-10 bg-red-300 bottom-2 right-2 rounded-full">
