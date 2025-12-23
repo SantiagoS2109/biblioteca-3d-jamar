@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { useEffect } from "react";
 
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
@@ -16,7 +16,22 @@ import lgAutoplay from "lightgallery/plugins/autoplay";
 import lgVideo from "lightgallery/plugins/video";
 import lgRotate from "lightgallery/plugins/rotate";
 
+import fjGallery from "flickr-justified-gallery";
+
+import "@/app/globals.css";
+
 function Gallery({ imgs }) {
+  useEffect(() => {
+    fjGallery(document.querySelectorAll(".gallery"), {
+      itemSelector: ".gallery__item",
+      rowHeight: 160,
+      lastRow: "start",
+      gutter: 12,
+      rowHeightTolerance: 0.1,
+      calculateItemsHeight: true,
+    });
+  }, []);
+
   return (
     <LightGallery
       speed={500}
@@ -29,15 +44,20 @@ function Gallery({ imgs }) {
         download: true,
       }}
       isMobile={true}
+      thumbnail={true}
+      elementClassNames={"gallery"}
     >
       {imgs.map((img, index) => (
-        <a href={img.src} key={index}>
+        <a
+          data-lg-size="4500-3167"
+          className="gallery__item"
+          data-src={img.src}
+          key={index}
+        >
           <img
-            // width={200}
-            // height={200}
             src={img.src}
             alt={img.alt}
-            className="mb-4 cursor-pointer rounded-lg"
+            className="img-responsive rounded-lg"
           />
         </a>
       ))}

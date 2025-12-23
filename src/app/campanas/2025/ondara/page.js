@@ -28,6 +28,46 @@ function PageOndara() {
       src: "/img/campañas/2026.webp",
       alt: "Ondara 2",
     },
+    {
+      src: "/img/campañas/2026.webp",
+      alt: "Ondara 2",
+    },
+    {
+      src: "/img/campañas/2026.webp",
+      alt: "Ondara 2",
+    },
+    {
+      src: "/img/campañas/2026.webp",
+      alt: "Ondara 2",
+    },
+    {
+      src: "/img/campañas/2026.webp",
+      alt: "Ondara 2",
+    },
+    {
+      src: "/img/campañas/2026.webp",
+      alt: "Ondara 2",
+    },
+    {
+      src: "/img/campañas/2026.webp",
+      alt: "Ondara 2",
+    },
+    {
+      src: "/img/campañas/2026.webp",
+      alt: "Ondara 2",
+    },
+    {
+      src: "/img/campañas/2026.webp",
+      alt: "Ondara 2",
+    },
+    {
+      src: "/img/campañas/2026.webp",
+      alt: "Ondara 2",
+    },
+    {
+      src: "/img/campañas/2026.webp",
+      alt: "Ondara 2",
+    },
   ];
 
   return (
@@ -35,7 +75,7 @@ function PageOndara() {
       <BotonVolver href="/campanas/2025" />
       <h1 className="text-2xl font-medium mb-8 lg:text-4xl">Campaña Ondara</h1>
 
-      <div className="w-full bg-red-400">
+      <div className="w-full">
         <Gallery imgs={imgsOndara} />
       </div>
     </SectionContainer>

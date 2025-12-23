@@ -141,3 +141,12 @@ a {
 .embla__dot--selected:after {
   box-shadow: inset 0 0 0 0.2rem var(--color-red-jamar);
 }
+
+.gallery {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.gallery__item img {
+  width: 100%;
+}

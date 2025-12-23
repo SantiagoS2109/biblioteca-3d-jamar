@@ -98,7 +98,7 @@ function NavBarSection() {
         <div
           className={`bg-background supports-[backdrop-filter]:bg-background/80 absolute top-15 left-0 flex w-full flex-col items-center gap-4 rounded-b-3xl p-4 transition-transform duration-300 md:flex-row md:bg-transparent md:w-fit
           ${
-            isOpen ? "translate-y-1" : "-translate-y-124"
+            isOpen ? "translate-y-9" : "-translate-y-124"
           } shadow-md md:static md:translate-y-0 md:items-center md:shadow-none`}
         >
           <ul className="flex flex-col items-center gap-4 md:flex-row md:gap-12 font-medium text-foreground/60 transition">

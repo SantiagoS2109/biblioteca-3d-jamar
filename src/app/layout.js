@@ -38,9 +38,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link type="text/css" rel="stylesheet" href="css/lightgallery.css" />
-        <link type="text/css" rel="stylesheet" href="css/lg-zoom.css" />
-        <link type="text/css" rel="stylesheet" href="css/lg-thumbnail.css" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link
           rel="icon"
