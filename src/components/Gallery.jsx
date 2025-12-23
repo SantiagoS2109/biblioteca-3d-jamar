@@ -16,20 +16,34 @@ import lgAutoplay from "lightgallery/plugins/autoplay";
 import lgVideo from "lightgallery/plugins/video";
 import lgRotate from "lightgallery/plugins/rotate";
 
-import fjGallery from "flickr-justified-gallery";
+// Load flickr-justified-gallery dynamically to avoid SSR/runtime errors
 
 import "@/app/globals.css";
 
 function Gallery({ imgs }) {
   useEffect(() => {
-    fjGallery(document.querySelectorAll(".gallery"), {
-      itemSelector: ".gallery__item",
-      rowHeight: 160,
-      lastRow: "start",
-      gutter: 12,
-      rowHeightTolerance: 0.1,
-      calculateItemsHeight: true,
-    });
+    if (typeof window === "undefined") return;
+    let mounted = true;
+    (async () => {
+      try {
+        const mod = await import("flickr-justified-gallery");
+        const fj = mod && (mod.default || mod);
+        if (!mounted || !fj) return;
+        fj(document.querySelectorAll(".gallery"), {
+          itemSelector: ".gallery__item",
+          rowHeight: 160,
+          lastRow: "start",
+          gutter: 12,
+          rowHeightTolerance: 0.1,
+          calculateItemsHeight: true,
+        });
+      } catch (e) {
+        console.error("Failed to load flickr-justified-gallery:", e);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
