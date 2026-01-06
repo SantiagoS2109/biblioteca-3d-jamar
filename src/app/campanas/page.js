@@ -4,8 +4,8 @@ import Link from "next/link";
 
 function CampanasPage() {
   const añosCampañas = [
-    { año: "2025", link: "/campanas/2025", img: "" },
-    { año: "2026", link: "/campanas/2026", img: "" },
+    { año: "2025", link: "/campanas/2025", color: "bg-blue-300" },
+    { año: "2026", link: "/campanas/2026", color: "bg-red-300" },
   ];
 
   return (
@@ -18,7 +18,7 @@ function CampanasPage() {
           <Link
             key={campaña.año}
             href={campaña.link}
-            className={`relative col-span-3 md:col-span-1 bg-[url('/img/campañas/${campaña.año}.webp')] bg-cover h-48 rounded-lg flex items-center justify-center md:h-72`}
+            className={`${campaña.color} relative col-span-3 md:col-span-1 h-48 rounded-lg flex items-center justify-center md:h-72`}
           >
             <div className="absolute inset-0 bg-black opacity-40 rounded-lg"></div>
             <p className="text-center px-4 text-8xl font-bold text-white z-10">

@@ -5,42 +5,10 @@ import BotonVolver from "@/components/UI/BotonVolver";
 import SectionContainer from "@/components/UI/SectionContainer";
 import Link from "next/link";
 import Image from "next/image";
+import { campañas2025 } from "@/data/2025/campañas";
 
 function Page2025() {
   const [hoveredId, setHoveredId] = useState(null);
-
-  const items = [
-    {
-      id: 1,
-      title: "Navidad 2025",
-      image: "/img/campañas/2025.webp",
-      slug: "navidad-2025",
-    },
-    {
-      id: 2,
-      title: "Aniversario 75",
-      image: "/img/campañas/2026.webp",
-      slug: "aniversario-75",
-    },
-    {
-      id: 3,
-      title: "Sueña JAMAR",
-      image: "/img/campañas/2025.webp",
-      slug: "suenia-jamar",
-    },
-    {
-      id: 4,
-      title: "Feria del Crédito",
-      image: "/img/campañas/2026.webp",
-      slug: "feria-del-credito",
-    },
-    {
-      id: 5,
-      title: "Ondara",
-      image: "/img/campañas/2025.webp",
-      slug: "ondara",
-    },
-  ];
 
   return (
     <SectionContainer>
@@ -48,7 +16,7 @@ function Page2025() {
       <h1 className="text-2xl font-medium mb-8 lg:text-4xl">Campañas 2025</h1>
 
       <div className="grid grid-cols-1 md:flex w-full md:h-[450px] gap-0">
-        {items.map((campana) => {
+        {campañas2025.map((campana) => {
           const isHovered = hoveredId === campana.id;
           const flexGrow = hoveredId === null ? 1 : isHovered ? 2 : 0.8;
 
