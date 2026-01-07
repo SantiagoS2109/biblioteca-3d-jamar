@@ -15,6 +15,19 @@ function NavBarSection() {
 
   const pathName = usePathname();
 
+  const items = [
+    { label: "Biblioteca", href: "/#biblioteca", pathName: "/" },
+    { label: "Campañas", href: "/campanas", pathName: "/campanas" },
+  ];
+
+  session && session.user
+    ? items.push({
+        label: "Herramientas",
+        href: "/herramientas",
+        pathName: "/herramientas",
+      })
+    : null;
+
   const handleModalToggle = () => {
     setIsOpenModal(!isOpenModal);
     setIsOpenLogOut(false);
@@ -102,20 +115,16 @@ function NavBarSection() {
           } shadow-md md:static md:translate-y-0 md:items-center md:shadow-none`}
         >
           <ul className="flex flex-col items-center gap-4 md:flex-row md:gap-12 font-medium text-foreground/60 transition">
-            <li
-              className={`inline-block hover:text-foreground/100 ${
-                pathName === "/" ? "text-red-jamar/100" : ""
-              }`}
-            >
-              <Link href="/#biblioteca">Biblioteca</Link>
-            </li>
-            <li
-              className={`inline-block hover:text-foreground/100 ${
-                pathName === "/campanas" ? "text-red-jamar/100" : ""
-              }`}
-            >
-              <Link href="/campanas">Campañas</Link>
-            </li>
+            {items.map((item) => (
+              <li
+                key={item.href}
+                className={`inline-block hover:text-foreground/100 ${
+                  pathName === item.pathName ? "text-red-jamar/100" : ""
+                }`}
+              >
+                <Link href={item.href}>{item.label}</Link>
+              </li>
+            ))}
             <li className="inline-block relative">
               {session && session.user ? (
                 <>

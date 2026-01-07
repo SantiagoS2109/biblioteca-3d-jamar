@@ -12,15 +12,15 @@ import {
 export const campañas2025 = [
   {
     id: 1,
-    title: "Navidad 2025",
-    image: "/img/campañas/portadas/navidad2025.webp",
-    slug: "navidad-2025",
+    title: "Feria del Crédito",
+    image: "/img/campañas/portadas/feria-del-credito.webp",
+    slug: "feria-del-credito",
   },
   {
     id: 2,
-    title: "Aniversario 75",
-    image: "/img/campañas/portadas/aniversario75.webp",
-    slug: "aniversario-75",
+    title: "Ondara",
+    image: "/img/campañas/portadas/ondara.webp",
+    slug: "ondara",
   },
   {
     id: 3,
@@ -28,17 +28,19 @@ export const campañas2025 = [
     image: "/img/campañas/portadas/suenia-jamar.webp",
     slug: "suenia-jamar",
   },
+
   {
     id: 4,
-    title: "Feria del Crédito",
-    image: "/img/campañas/portadas/feria-del-credito.webp",
-    slug: "feria-del-credito",
+    title: "Aniversario 75",
+    image: "/img/campañas/portadas/aniversario75.webp",
+    slug: "aniversario-75",
   },
+
   {
     id: 5,
-    title: "Ondara",
-    image: "/img/campañas/portadas/ondara.webp",
-    slug: "ondara",
+    title: "Navidad 2025",
+    image: "/img/campañas/portadas/navidad2025.webp",
+    slug: "navidad-2025",
   },
 ];
 
