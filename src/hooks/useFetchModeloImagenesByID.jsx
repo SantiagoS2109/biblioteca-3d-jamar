@@ -2,7 +2,6 @@ import { supabase } from "../lib/supabase/supabaseClient";
 import { useState, useEffect } from "react";
 
 export function useFetchModeloImagenesByID(id) {
-  console.log("Fetching modelo images for id:", id);
   const [modeloImagenes, setModeloImagenes] = useState(null);
   const [loadingImagenes, setLoadingImagenes] = useState(true);
 

@@ -1,8 +1,8 @@
+import toast from "react-hot-toast";
 import { supabase } from "../lib/supabase/supabaseClient";
 import { useState, useEffect } from "react";
 
 export function useFetchModelosByID(id) {
-  console.log("Fetching modelo for id:", id);
   const [modelo, setModelo] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +14,7 @@ export function useFetchModelosByID(id) {
         .eq("id", id)
         .single();
       if (error) {
-        console.error("Error fetching modelo:", error);
+        toast.error("Error fetching modelo: " + error.message);
       } else {
         setModelo(data);
         setLoading(false);

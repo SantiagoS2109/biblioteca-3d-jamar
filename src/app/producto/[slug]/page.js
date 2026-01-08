@@ -53,15 +53,17 @@ function ProductPage({ params }) {
               </div>
             </div>
 
-            <Link
-              href={modelo.link}
-              rel="noopener noreferrer"
-              target="_blank"
-              className="bg-red-jamar w-fit h-fit px-3 py-2 flex gap-4 items-center justify-center rounded-lg cursor-pointer hover:bg-red-400 transition-colors duration-300"
-            >
-              <CubeIcon size={40} className="inline text-white" />
-              <p className="font-medium text-white">Descargar modelo</p>
-            </Link>
+            {modelo?.link && (
+              <Link
+                href={modelo?.link || "#"}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="bg-red-jamar w-fit h-fit px-3 py-2 flex gap-4 items-center justify-center rounded-lg cursor-pointer hover:bg-red-400 transition-colors duration-300"
+              >
+                <CubeIcon size={40} className="inline text-white" />
+                <p className="font-medium text-white">Descargar modelo</p>
+              </Link>
+            )}
           </div>
         </section>
       )}
