@@ -65,6 +65,11 @@ function HerramientasPage() {
       usuario: "admin@jamar.com",
       credenciales: "InJouse2025**",
     },
+    {
+      plataforma: "https://sketchfab.com/",
+      usuario: "admin@jamar.com",
+      credenciales: "InJouse2025**",
+    },
   ];
 
   return (
