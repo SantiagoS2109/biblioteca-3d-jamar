@@ -6,7 +6,7 @@ import { CubeIcon } from "@phosphor-icons/react/dist/ssr";
 import { useFetchModelosByID } from "../../../hooks/useFetchModelosByID";
 import { useFetchModeloImagenesByID } from "../../../hooks/useFetchModeloImagenesByID";
 import Spinner from "@/components/UI/Spinner";
-import EmblaCarousel from "@/components/UI/EmblaCarousel";
+import EmblaCarouselWithLightGallery from "@/components/UI/EmblaCarouselWithLightGallery";
 import BotonVolver from "@/components/UI/BotonVolver";
 import SectionContainer from "@/components/UI/SectionContainer";
 
@@ -35,7 +35,10 @@ function ProductPage({ params }) {
         <section className="md:grid md:grid-cols-2 md:gap-12">
           <div>
             {!loadingImagenes && (
-              <EmblaCarousel slides={imgsModelo} options={{ loop: true }} />
+              <EmblaCarouselWithLightGallery
+                slides={imgsModelo}
+                options={{ loop: true }}
+              />
             )}
           </div>
 
