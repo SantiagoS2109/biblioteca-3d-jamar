@@ -25,7 +25,7 @@ function ProductPage({ params }) {
 
   return (
     <SectionContainer id="producto">
-      <BotonVolver href="/#biblioteca" />
+      <BotonVolver href="/" />
 
       {loading ? (
         <div className="flex items-center justify-center w-full mt-24">

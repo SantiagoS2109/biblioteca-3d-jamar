@@ -4,10 +4,10 @@ function CardCarpeta({ titulo, icon, color, link }) {
   return (
     <Link
       href={link ? link : "/"}
-      className={`${color} relative w-full h-32 rounded-2xl mb-10`}
+      className={`bg-${color}-200 relative w-full h-32 rounded-2xl mb-10`}
     >
       <div
-        className={`absolute ${color} border-8 border-white rounded-full w-24 h-24 -top-10 right-1/2 translate-x-12`}
+        className={`absolute bg-${color}-200 border-8 border-white rounded-full w-24 h-24 -top-10 right-1/2 translate-x-12`}
       >
         {icon}
       </div>

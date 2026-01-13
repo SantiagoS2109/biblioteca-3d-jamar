@@ -70,7 +70,7 @@ function Gallery({ imgs }) {
         >
           <img
             src={img.src}
-            alt={img.alt}
+            alt={img.alt || img.title}
             className="img-responsive rounded-lg"
           />
         </a>
