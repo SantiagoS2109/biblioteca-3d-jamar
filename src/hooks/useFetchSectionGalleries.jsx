@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase/supabaseClient";
 
-export const useFetchSectionGalleries = (year, campaignSlug, sectionSlug) => {
+export const useFetchSectionGalleries = (
+  year,
+  campaignSlug,
+  categorySlug,
+  sectionSlug
+) => {
   const [section, setSection] = useState(null);
   const [galleries, setGalleries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,11 +27,21 @@ export const useFetchSectionGalleries = (year, campaignSlug, sectionSlug) => {
 
         if (campaignError) throw campaignError;
 
+        // Obtener categoría
+        const { data: categoryData, error: categoryError } = await supabase
+          .from("campaign_categories")
+          .select("id")
+          .eq("campaign_id", campaignData.id)
+          .eq("slug", categorySlug)
+          .single();
+
+        if (categoryError) throw categoryError;
+
         // Obtener sección
         const { data: sectionData, error: sectionError } = await supabase
           .from("campaign_sections")
           .select("*")
-          .eq("campaign_id", campaignData.id)
+          .eq("category_id", categoryData.id)
           .eq("slug", sectionSlug)
           .single();
 
@@ -49,10 +64,10 @@ export const useFetchSectionGalleries = (year, campaignSlug, sectionSlug) => {
       }
     };
 
-    if (year && campaignSlug && sectionSlug) {
+    if (year && campaignSlug && categorySlug && sectionSlug) {
       fetchSectionGalleries();
     }
-  }, [year, campaignSlug, sectionSlug]);
+  }, [year, campaignSlug, categorySlug, sectionSlug]);
 
   return { section, galleries, loading, error };
 };

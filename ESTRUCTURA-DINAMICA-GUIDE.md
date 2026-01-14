@@ -7,20 +7,23 @@
 ```
 src/app/campanas/
 ├── [year]/
-│   ├── page.js                          # Lista de campañas del año
+│   ├── page.js                              (lista de campañas del año)
 │   ├── [campaignSlug]/
-│   │   ├── page.js                      # Detalle campaña + secciones
-│   │   └── [sectionSlug]/
-│   │       └── page.js                  # Galerías de la sección
-│   └── exhibicion-en-tiendas/          # DEPRECATED - Ruta antigua
-│       └── page.js
+│   │   ├── page.js                          (detalle campaña + 3 categorías)
+│   │   ├── [categorySlug]/
+│   │   │   ├── page.js                      (secciones dentro de categoría)
+│   │   │   └── [sectionSlug]/
+│   │   │       └── page.js                  (galerías de la sección)
+│   │   └── exhibicion-en-tiendas/          (DEPRECATED - Ruta antigua)
+│   │       └── page.js
 ```
 
 ### Rutas Dinámicas
 
 - `/campanas/2025` → Lista de campañas del 2025
-- `/campanas/2025/ondara` → Campaña "Ondaría" con sus 5-8 secciones
-- `/campanas/2025/ondara/exhibicion-en-tiendas` → Sección con múltiples galerías
+- `/campanas/2025/ondara` → Campaña "Ondaría" con sus 3 categorías (Toolkit, Contenido, Catálogo)
+- `/campanas/2025/ondara/toolkit` → Categoría "Toolkit" con sus secciones
+- `/campanas/2025/ondara/toolkit/exhibicion-en-tiendas` → Sección con múltiples galerías
 
 ## 💾 Estructura en Supabase
 

@@ -1,28 +1,26 @@
 "use client";
 
 import { use } from "react";
-import Link from "next/link";
+import {
+  BookIcon,
+  ShoppingBagIcon,
+  ImageIcon,
+} from "@phosphor-icons/react/dist/ssr";
 import BotonVolver from "@/components/UI/BotonVolver";
 import SectionContainer from "@/components/UI/SectionContainer";
 import CardCarpeta from "@/components/UI/CardCarpeta";
 import Spinner from "@/components/UI/Spinner";
-import { useFetchCampaignDetails } from "@/hooks/useFetchCampaignDetails";
+import { useFetchCampaignCategories } from "@/hooks/useFetchCampaignCategories";
 
-// // Mapeo de iconos
-// const iconMap = {
-//   StorefrontIcon: () => require("@phosphor-icons/react/dist/ssr").StorefrontIcon,
-//   InfoIcon: () => require("@phosphor-icons/react/dist/ssr").InfoIcon,
-//   PaletteIcon: () => require("@phosphor-icons/react/dist/ssr").PaletteIcon,
-//   CouchIcon: () => require("@phosphor-icons/react/dist/ssr").CouchIcon,
-//   ImagesIcon: () => require("@phosphor-icons/react/dist/ssr").ImagesIcon,
-//   PanoramaIcon: () => require("@phosphor-icons/react/dist/ssr").PanoramaIcon,
-//   FileTextIcon: () => require("@phosphor-icons/react/dist/ssr").FileTextIcon,
-//   VideoIcon: () => require("@phosphor-icons/react/dist/ssr").VideoIcon,
-// };
+const categoryIcons = {
+  toolkit: BookIcon,
+  contenido: ShoppingBagIcon,
+  catalogo: ImageIcon,
+};
 
 function CampaignDetailPage({ params }) {
   const { year, campaignSlug } = use(params);
-  const { campaign, sections, loading, error } = useFetchCampaignDetails(
+  const { campaign, categories, loading, error } = useFetchCampaignCategories(
     parseInt(year),
     campaignSlug
   );
@@ -40,7 +38,7 @@ function CampaignDetailPage({ params }) {
   if (error || !campaign) {
     return (
       <SectionContainer>
-        <BotonVolver href={`/#biblioteca`} />
+        <BotonVolver />
         <div className="text-center mt-24">
           <p className="text-red-500">
             Error: {error || "Campaña no encontrada"}
@@ -62,19 +60,21 @@ function CampaignDetailPage({ params }) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {sections.map((section) => {
-          // const IconComponent = iconMap[section.icon_type]?.();
+        {categories.map((category) => {
+          const IconComponent =
+            categoryIcons[category.slug.split("-")[0]] || ImageIcon;
           return (
             <CardCarpeta
-              key={section.id}
-              titulo={section.name}
-              color={section.color}
-              link={`/campanas/${year}/${campaignSlug}/${section.slug}`}
-              // icon={
-              //   IconComponent ? (
-              //     <IconComponent size={48} className="text-foreground m-4" />
-              //   ) : null
-              // }
+              key={category.id}
+              titulo={category.name}
+              color={category.color}
+              link={`/campanas/${year}/${campaignSlug}/${category.slug}`}
+              icon={
+                IconComponent ? (
+                  <IconComponent size={48} className="text-foreground m-4" />
+                ) : null
+              }
+              description={category.description}
             />
           );
         })}
