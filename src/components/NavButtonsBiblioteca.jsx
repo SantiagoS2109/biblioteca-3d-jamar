@@ -1,6 +1,6 @@
 function NavButtonsBiblioteca({ piso, setPiso }) {
   return (
-    <div className="grid grid-cols-3 w-full gap-4 mb-18 lg:w-1/2">
+    <div className="grid grid-cols-3 w-full gap-4 mb-12 lg:w-1/2">
       <Button onClick={() => setPiso(1)} isActive={piso === 1}>
         Piso 1
       </Button>

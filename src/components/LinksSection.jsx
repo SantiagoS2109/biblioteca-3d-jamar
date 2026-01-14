@@ -13,26 +13,26 @@ function LinksSection() {
       id="links"
       className="w-full flex flex-col items-center py-8 px-4 lg:px-64"
     >
-      <h2 className="text-2xl font-medium mb-8 lg:text-4xl">Links</h2>
+      <h2 className="text-2xl font-medium mb-4">Links</h2>
 
       <div className="w-full flex justify-center gap-4">
         <Link
-          className="flex items-center py-2 px-4 rounded-full transition-all duration-300 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+          className="flex items-center py-2 px-4 rounded-full transition-all duration-300 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white text-sm"
           href={linkBiblioteca}
           rel="noopener noreferrer"
           target="_blank"
         >
-          <BookmarkIcon size={24} className="inline mr-2" />
+          <BookmarkIcon size={18} className="inline mr-2" />
           Biblioteca Excel
         </Link>
 
         <Link
-          className="flex items-center py-2 px-4 rounded-full transition-all duration-300 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+          className="flex items-center py-2 px-4 rounded-full transition-all duration-300 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white text-sm"
           href={linkTangibles}
           rel="noopener noreferrer"
           target="_blank"
         >
-          <CubeIcon size={24} className="inline mr-2" />
+          <CubeIcon size={18} className="inline mr-2" />
           Tangible Excel
         </Link>
       </div>

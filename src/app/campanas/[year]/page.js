@@ -42,11 +42,9 @@ function CampaignsYearPage({ params }) {
     <SectionContainer id="campanas">
       <BotonVolver />
 
-      <div className="mb-12">
-        <h1 className="text-4xl font-bold mb-4">Campañas {year}</h1>
-      </div>
+      <h1 className="text-3xl font-medium mb-8">Campañas {year}</h1>
 
-      <div className="grid grid-cols-1 md:flex w-full md:h-[450px] gap-0">
+      <div className="grid grid-cols-1 gap-4 md:flex w-full md:h-[calc(100vh-270px)] md:gap-0">
         {campaigns.map((campaign) => {
           const isHovered = hoveredId === campaign.id;
           const flexGrow = hoveredId === null ? 1 : isHovered ? 2 : 0.8;
@@ -70,7 +68,7 @@ function CampaignsYearPage({ params }) {
                 src={URL_BUCKET + campaign.path_portada}
                 alt={campaign.name}
                 loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-[200px] md:h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
 
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300">

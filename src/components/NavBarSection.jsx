@@ -81,7 +81,7 @@ function NavBarSection() {
   return (
     <>
       <nav
-        className={`bg-background h-24 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur transition-shadow duration-300 md:rounded-b-3xl md:px-12 xl:px-24 ${
+        className={`bg-background h-18 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur transition-shadow duration-300 md:rounded-b-3xl md:px-12 xl:px-24   ${
           hasShadow ? "shadow-md" : ""
         }`}
       >

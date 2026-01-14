@@ -21,9 +21,9 @@ function BibliotecaSection() {
   return (
     <section
       id="biblioteca"
-      className="w-full flex flex-col items-center py-8 px-4 lg:px-64"
+      className="w-full flex flex-col items-center py-8 px-4 lg:px-32"
     >
-      <h2 className="text-2xl font-medium mb-8 lg:text-4xl">Biblioteca</h2>
+      <h2 className="text-2xl font-medium mb-4">Biblioteca</h2>
 
       <NavButtonsBiblioteca piso={piso} setPiso={setPiso} />
 
@@ -36,9 +36,9 @@ function BibliotecaSection() {
       ) : (
         <>
           <div className="flex flex-col justify-center items-center mb-8">
-            <h3 className="text-xl font-medium mb-4">
+            <span className="font-medium mb-4">
               Piso {piso} - {descripcionPiso[piso]}
-            </h3>
+            </span>
             <div className="relative w-full max-w-xl">
               <input
                 type="text"
@@ -58,13 +58,13 @@ function BibliotecaSection() {
             </div>
 
             <div className="flex justify-center bg-red-400 rounded-2xl py-2 px-4 w-fit">
-              <p className=" text-white">
+              <p className="text-white">
                 En total hay <span className="font-bold">{modelos.length}</span>{" "}
                 modelos en este piso.
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-2 w-full gap-4 mb-8 md:grid-cols-4 2xl:grid-cols-5">
+          <div className="grid grid-cols-2 w-full gap-4 mb-8 md:grid-cols-5">
             {modelos
               .filter((modelo) =>
                 modelo.nombre.toLowerCase().includes(searchTerm.toLowerCase())

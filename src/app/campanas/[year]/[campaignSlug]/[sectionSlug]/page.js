@@ -29,7 +29,7 @@ function SectionPage({ params }) {
   if (!section) {
     return (
       <SectionContainer>
-        <BotonVolver />
+        <BotonVolver href="./" />
         <div className="text-center mt-24">
           <p className="text-red-500">Sección no encontrada</p>
         </div>
@@ -42,7 +42,7 @@ function SectionPage({ params }) {
       <BotonVolver />
 
       <div className="mb-12">
-        <h1 className="text-4xl font-bold mb-4">{section.name}</h1>
+        <h1 className="text-3xl font-medium mb-4">{section.name}</h1>
         {section.description && (
           <p className="text-gray-600">{section.description}</p>
         )}

@@ -118,9 +118,9 @@ function ModalImagenes({ onUploaded }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="bottom-32 right-4 w-20 h-20 bg-red-600 text-white flex items-center justify-center rounded-full shadow-lg cursor-pointer hover:bg-red-700 transition-all duration-300 fixed"
+        className="bottom-24 right-4 w-14 h-14 bg-red-600 text-white flex items-center justify-center rounded-full shadow-lg cursor-pointer hover:bg-red-700 transition-all duration-300 fixed"
       >
-        <ImageIcon size={48} />
+        <ImageIcon size={32} />
       </button>
 
       <div

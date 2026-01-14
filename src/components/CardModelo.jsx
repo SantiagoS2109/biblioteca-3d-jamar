@@ -18,9 +18,9 @@ function CardModelo({ modelo }) {
       href={`/producto/${modelo.id}`}
       rel="noopener noreferrer"
     >
-      <div className="relative bg-gray-200/70 h-full p-4 rounded-xl transition-all cursor-pointer hover:shadow-lg hover:scale-101">
+      <div className="relative flex flex-col gap-2 bg-gray-200/70 h-full p-4 rounded-xl transition-all cursor-pointer hover:shadow-lg hover:scale-101">
         {loadingImagenes ? (
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center h-full">
             <Spinner />
           </div>
         ) : (
@@ -38,9 +38,9 @@ function CardModelo({ modelo }) {
           />
         )}
 
-        <div className="mt-auto">
-          <p className="mt-2 font-bold leading-4.5">{modelo.nombre}</p>
-          <p className="mt-2 italic text-red-500">{modelo.codigo}</p>
+        <div className="h-full flex flex-col justify-between gap-2">
+          <p className="font-bold leading-4.5">{modelo.nombre}</p>
+          <p className="italic text-red-500">{modelo.codigo}</p>
         </div>
 
         {!modelo.link && (

@@ -32,8 +32,8 @@ function ProductPage({ params }) {
           <Spinner />
         </div>
       ) : (
-        <section className="md:grid md:grid-cols-2 md:gap-12">
-          <div>
+        <section className="md:grid md:grid-cols-2 md:gap-12 ">
+          <div className="w-3/4 justify-self-center mt-8 md:mt-0">
             {!loadingImagenes && (
               <EmblaCarouselWithLightGallery
                 slides={imgsModelo}
@@ -43,16 +43,14 @@ function ProductPage({ params }) {
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold mt-8 mb-2">{modelo.nombre}</h1>
+            <h1 className="text-xl font-bold mt-8 mb-2">{modelo.nombre}</h1>
             <div className="flex justify-between items-center mb-6">
               <p className="text-red-jamar font-medium italic">
                 {modelo.codigo}
               </p>
 
               <div className="bg-red-200 px-4 py-1 w-fit rounded-full">
-                <p className="text-red-jamar font-bold text-lg">
-                  Piso {modelo.piso}
-                </p>
+                <p className="text-red-jamar font-bold">Piso {modelo.piso}</p>
               </div>
             </div>
 
@@ -61,10 +59,12 @@ function ProductPage({ params }) {
                 href={modelo?.link || "#"}
                 rel="noopener noreferrer"
                 target="_blank"
-                className="bg-red-jamar w-fit h-fit px-3 py-2 flex gap-4 items-center justify-center rounded-lg cursor-pointer hover:bg-red-400 transition-colors duration-300"
+                className="bg-red-jamar w-fit h-fit px-3 py-2 flex gap-2 items-center justify-center rounded-lg cursor-pointer hover:bg-red-400 transition-colors duration-300"
               >
-                <CubeIcon size={40} className="inline text-white" />
-                <p className="font-medium text-white">Descargar modelo</p>
+                <CubeIcon size={24} className="inline text-white" />
+                <p className="text-sm font-medium text-white">
+                  Descargar modelo
+                </p>
               </Link>
             )}
           </div>

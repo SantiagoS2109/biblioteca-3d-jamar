@@ -11,7 +11,7 @@ function CampanasPage() {
   return (
     <SectionContainer id="campanas">
       <BotonVolver href="/" />
-      <h2 className="text-2xl font-medium mb-8 lg:text-4xl">Campañas</h2>
+      <h1 className="text-3xl font-medium mb-8 ">Campañas</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
         {añosCampañas.map((campaña) => (

@@ -76,13 +76,11 @@ function HerramientasPage() {
     <ProtectedRoute>
       <SectionContainer id="herramientas">
         <BotonVolver href="/" />
-        <h2 className="text-2xl font-medium mb-8 lg:text-4xl">
-          Acceso a herramientas
-        </h2>
+        <h2 className="text-2xl font-medium mb-8">Acceso a herramientas</h2>
 
         <div className="relative overflow-x-auto shadow-xs rounded-xl border border-gray-200">
-          <table className="w-full text-sm text-left rtl:text-right text-body md:text-lg">
-            <thead className="text-sm text-body bg-gray-100 border-b rounded-base border-gray-200 md:text-lg">
+          <table className="w-full text-left rtl:text-right text-body">
+            <thead className="text-sm text-body bg-gray-100 border-b rounded-base border-gray-200 md:text-base">
               <tr>
                 <th scope="col" className="px-6 py-3 font-medium">
                   Plataforma
@@ -95,7 +93,7 @@ function HerramientasPage() {
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-sm">
               {tableData.map((item, index) => (
                 <tr
                   key={index}

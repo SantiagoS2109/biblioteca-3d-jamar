@@ -13,7 +13,9 @@ function CardCarpeta({ titulo, icon, color, link }) {
       </div>
 
       <div className="p-6 pt-20 h-full flex items-center justify-center">
-        <h2 className="text-xl font-medium mb-2 text-center">{titulo}</h2>
+        <h2 className="text-xl md:text-lg font-medium mb-2 text-center">
+          {titulo}
+        </h2>
       </div>
     </Link>
   );
