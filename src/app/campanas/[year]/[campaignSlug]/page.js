@@ -11,6 +11,7 @@ import SectionContainer from "@/components/UI/SectionContainer";
 import CardCarpeta from "@/components/UI/CardCarpeta";
 import Spinner from "@/components/UI/Spinner";
 import { useFetchCampaignCategories } from "@/hooks/useFetchCampaignCategories";
+import ModalCarpetaCampaña from "@/components/ModalCarpetaCampaña";
 
 const categoryIcons = {
   toolkit: BookIcon,
@@ -51,6 +52,8 @@ function CampaignDetailPage({ params }) {
   return (
     <SectionContainer id="campana">
       <BotonVolver />
+
+      <ModalCarpetaCampaña campaign={campaign} categories={categories} />
 
       <div className="mb-12">
         <h1 className="text-3xl font-medium mb-2">{campaign.name}</h1>

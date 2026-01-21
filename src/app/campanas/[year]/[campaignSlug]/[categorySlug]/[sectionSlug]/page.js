@@ -7,6 +7,7 @@ import Spinner from "@/components/UI/Spinner";
 import { useFetchSectionGalleries } from "@/hooks/useFetchSectionGalleries";
 import { useFetchGalleryImages } from "@/hooks/useFetchGalleryImages";
 import Gallery from "@/components/Gallery";
+import ModalGaleria from "@/components/ModalGaleria";
 
 function SectionPage({ params }) {
   const { year, campaignSlug, categorySlug, sectionSlug } = use(params);
@@ -45,6 +46,8 @@ function SectionPage({ params }) {
   return (
     <SectionContainer id="seccion">
       <BotonVolver />
+
+      <ModalGaleria />
 
       <div className="mb-12">
         <h1 className="text-3xl font-medium mb-2">{section.name}</h1>
