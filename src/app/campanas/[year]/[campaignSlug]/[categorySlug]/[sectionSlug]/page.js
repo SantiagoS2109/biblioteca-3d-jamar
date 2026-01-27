@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useState } from "react";
+import { CaretDown } from "@phosphor-icons/react";
 import BotonVolver from "@/components/UI/BotonVolver";
 import SectionContainer from "@/components/UI/SectionContainer";
 import Spinner from "@/components/UI/Spinner";
@@ -73,7 +74,7 @@ function SectionPage({ params }) {
         </button>
       </div>
 
-      <div className="space-y-16">
+      <div className="space-y-4">
         {galleries.map((gallery) => (
           <GalleryCard key={`${gallery.id}-${refreshKey}`} gallery={gallery} />
         ))}
@@ -91,6 +92,7 @@ function SectionPage({ params }) {
 }
 
 function GalleryCard({ gallery }) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const { images, loading } = useFetchGalleryImages(gallery.id);
 
   if (loading) {
@@ -102,12 +104,45 @@ function GalleryCard({ gallery }) {
   }
 
   return (
-    <div className="mb-16">
-      <h2 className="text-2xl font-bold mb-6">{gallery.name}</h2>
-      {gallery.description && (
-        <p className="text-gray-600 mb-6">{gallery.description}</p>
+    <div className="border border-gray-200 rounded-lg overflow-hidden">
+      {/* Header desplegable */}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="w-full flex items-center justify-between p-6 bg-gray-50 hover:bg-gray-100 transition-colors"
+      >
+        <div className="flex items-center gap-4">
+          <CaretDown
+            size={24}
+            className={`text-gray-600 transition-transform ${
+              isExpanded ? "rotate-0" : "-rotate-90"
+            }`}
+          />
+          <div className="text-left">
+            <h2 className="text-2xl font-bold text-gray-900">{gallery.name}</h2>
+            {gallery.description && (
+              <p className="text-sm text-gray-600 mt-1">
+                {gallery.description}
+              </p>
+            )}
+          </div>
+        </div>
+        <span className="text-sm text-gray-500 bg-white px-3 py-1 rounded-full">
+          {images.length} imagen{images.length !== 1 ? "es" : ""}
+        </span>
+      </button>
+
+      {/* Contenido desplegable */}
+      {isExpanded && (
+        <div className="p-6 border-t border-gray-200">
+          {images.length > 0 ? (
+            <Gallery imgs={images} />
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500">No hay imágenes en esta galería</p>
+            </div>
+          )}
+        </div>
       )}
-      {images.length > 0 && <Gallery imgs={images} />}
     </div>
   );
 }
