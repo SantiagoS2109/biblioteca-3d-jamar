@@ -11,7 +11,7 @@ function ModalImagenes({ onUploaded }) {
   const { session } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
-  const { modelos, loading } = useFetchModelos(1);
+  const { modelos, loading } = useFetchModelos(3);
 
   const [selectedModelId, setSelectedModelId] = useState("");
   const [files, setFiles] = useState([]);
@@ -89,7 +89,7 @@ function ModalImagenes({ onUploaded }) {
         .select();
       if (error) {
         toast.error(
-          "Error al crear registros en la base de datos" + error.message
+          "Error al crear registros en la base de datos" + error.message,
         );
       } else {
         onUploaded?.(data);

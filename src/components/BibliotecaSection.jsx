@@ -9,8 +9,10 @@ import Spinner from "./UI/Spinner";
 function BibliotecaSection() {
   const [piso, setPiso] = useState(1);
 
-  const { modelos, loading } = useFetchModelos(piso);
   const [searchTerm, setSearchTerm] = useState("");
+  const [piso3View, setPiso3View] = useState("modelo");
+
+  const { modelos, loading } = useFetchModelos(piso, piso3View);
 
   const descripcionPiso = {
     1: "Modelos social, dormitorio, sofás, comedores y más.",
@@ -26,6 +28,45 @@ function BibliotecaSection() {
       <h2 className="text-2xl font-medium mb-4">Biblioteca</h2>
 
       <NavButtonsBiblioteca piso={piso} setPiso={setPiso} />
+
+      {piso === 3 && (
+        <div className="flex justify-center mb-12">
+          <div className="relative flex bg-gray-100 rounded-full p-1 w-fit">
+            {/* Fondo animado que se desliza */}
+            <div
+              className="absolute top-1 bottom-1 rounded-full bg-red-jamar transition-all duration-300 ease-out"
+              style={{
+                left:
+                  piso3View === "modelo" ? "0.25rem" : "calc(50% + 0.25rem)",
+                width: "calc(50% - 0.5rem)",
+              }}
+            />
+
+            {/* Botones */}
+            <button
+              onClick={() => setPiso3View("modelo")}
+              className={`relative z-10 px-6 py-2 rounded-full font-medium transition-colors duration-300 ${
+                piso3View === "modelo"
+                  ? "text-white"
+                  : "text-gray-700 hover:text-gray-900"
+              }`}
+            >
+              Modelos
+            </button>
+
+            <button
+              onClick={() => setPiso3View("contenedor")}
+              className={`relative z-10 px-6 py-2 rounded-full font-medium transition-colors duration-300 ${
+                piso3View === "contenedor"
+                  ? "text-white"
+                  : "text-gray-700 hover:text-gray-900"
+              }`}
+            >
+              Contenedores
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Aquí se mapearían los modelos 3D basados en el estado 'piso' */}
 
@@ -59,15 +100,23 @@ function BibliotecaSection() {
 
             <div className="flex justify-center bg-red-400 rounded-2xl py-2 px-4 w-fit">
               <p className="text-white">
-                En total hay <span className="font-bold">{modelos.length}</span>{" "}
+                En total hay{" "}
+                <span className="font-bold">
+                  {
+                    modelos.filter(
+                      (modelo) => modelo.tipo === piso3View || piso !== 3,
+                    ).length
+                  }
+                </span>{" "}
                 modelos en este piso.
               </p>
             </div>
           </div>
           <div className="grid grid-cols-2 w-full gap-4 mb-8 md:grid-cols-5">
             {modelos
+              .filter((modelo) => modelo.tipo === piso3View || piso !== 3)
               .filter((modelo) =>
-                modelo.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+                modelo.nombre.toLowerCase().includes(searchTerm.toLowerCase()),
               )
               .map((modelo) => (
                 <CardModelo key={modelo.id} modelo={modelo} />

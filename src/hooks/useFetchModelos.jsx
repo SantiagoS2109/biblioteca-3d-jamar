@@ -1,7 +1,7 @@
 import { supabase } from "../lib/supabase/supabaseClient";
 import { useState, useEffect } from "react";
 
-export function useFetchModelos(piso) {
+export function useFetchModelos(piso, piso3View) {
   console.log("Fetching modelos for piso:", piso);
   const [modelos, setModelos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,6 +12,7 @@ export function useFetchModelos(piso) {
         .from("biblioteca")
         .select("*")
         .eq("piso", piso);
+
       if (error) {
         console.error("Error fetching modelos:", error);
       } else {

@@ -15,17 +15,13 @@ function NuevoModelo() {
     nombre: "",
     link: "",
     piso: "",
+    tipo: "",
   });
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !formData.codigo ||
-      !formData.nombre ||
-      !formData.link ||
-      !formData.piso
-    ) {
+    if (!formData.nombre || !formData.piso) {
       toast.error("Por favor, completa todos los campos.");
       return;
     }
@@ -36,6 +32,7 @@ function NuevoModelo() {
         nombre: formData.nombre,
         link: formData.link,
         piso: Number(formData.piso),
+        tipo: formData.tipo || "modelo",
       },
     ]);
 
@@ -49,6 +46,7 @@ function NuevoModelo() {
         nombre: "",
         link: "",
         piso: "",
+        tipo: "",
       });
     }
   };
@@ -94,14 +92,6 @@ function NuevoModelo() {
               }
             />
 
-            <InputField
-              placeholder="URL del modelo"
-              value={formData.link}
-              onChange={(e) =>
-                setFormData({ ...formData, link: e.target.value })
-              }
-            />
-
             <select
               className="border-2 border-gray-300 p-2 rounded-xl transition-all outline-none focus:ring-2 focus:ring-offset-4 focus:ring-red-jamar/65"
               value={formData.piso}
@@ -114,6 +104,20 @@ function NuevoModelo() {
               <option value="2">Piso 2</option>
               <option value="3">Piso 3</option>
             </select>
+
+            {formData.piso === "3" && (
+              <div className="flex gap-2">
+                <input
+                  type="checkbox"
+                  name="tipo"
+                  value={"contenedor"}
+                  onChange={(e) =>
+                    setFormData({ ...formData, tipo: e.target.value })
+                  }
+                />
+                <label htmlFor="tipo">Contenedor</label>
+              </div>
+            )}
             <button
               type="submit"
               className="btn-primario bg-red-jamar text-white"
