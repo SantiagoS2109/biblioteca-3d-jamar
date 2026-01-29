@@ -1,16 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { useFetchModelos } from "../hooks/useFetchModelos";
 import CardModelo from "./CardModelo";
 import NavButtonsBiblioteca from "./NavButtonsBiblioteca";
 import Spinner from "./UI/Spinner";
 
 function BibliotecaSection() {
+  const searchParams = useSearchParams();
+
   const [piso, setPiso] = useState(1);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [piso3View, setPiso3View] = useState("modelo");
+
+  const [contenedor, setContenedor] = useState("3866");
+
+  // Sincronizar el estado con la URL
+  useEffect(() => {
+    const pisoFromUrl = searchParams.get("piso");
+    const piso3ViewFromUrl = searchParams.get("view");
+
+    if (pisoFromUrl) {
+      setPiso(parseInt(pisoFromUrl, 10));
+    }
+    if (piso3ViewFromUrl) {
+      setPiso3View(piso3ViewFromUrl);
+    }
+  }, [searchParams]);
+
+  // Actualizar la URL cuando cambia el piso (sin recargar la página)
+  const handlePisoChange = (newPiso) => {
+    setPiso(newPiso);
+    window.history.pushState(null, "", `?piso=${newPiso}`);
+  };
+
+  // Actualizar la URL cuando cambia la vista del piso 3 (sin recargar la página)
+  const handlePiso3ViewChange = (newView) => {
+    setPiso3View(newView);
+    window.history.pushState(null, "", `?piso=3&view=${newView}`);
+  };
 
   const { modelos, loading } = useFetchModelos(piso, piso3View);
 
@@ -20,6 +50,22 @@ function BibliotecaSection() {
     3: "Alfombras, cuadros, cojines, lámparas y accesorios.",
   };
 
+  const contenedorCodigos = Array.from(
+    new Set(modelos.map((m) => m.contenedor).filter(Boolean)),
+  );
+
+  const modelosFiltrados = modelos
+    .filter((m) => (piso !== 3 ? true : m.tipo === piso3View))
+    .filter((m) => {
+      if (piso !== 3) return true;
+      if (piso3View === "contenedor") {
+        if (!contenedor) return true;
+        return m.contenedor === contenedor;
+      }
+      return true; // piso3View === 'modelo'
+    })
+    .filter((m) => m.nombre.toLowerCase().includes(searchTerm.toLowerCase()));
+
   return (
     <section
       id="biblioteca"
@@ -27,7 +73,7 @@ function BibliotecaSection() {
     >
       <h2 className="text-2xl font-medium mb-4">Biblioteca</h2>
 
-      <NavButtonsBiblioteca piso={piso} setPiso={setPiso} />
+      <NavButtonsBiblioteca piso={piso} setPiso={handlePisoChange} />
 
       {piso === 3 && (
         <div className="flex justify-center mb-12">
@@ -44,7 +90,7 @@ function BibliotecaSection() {
 
             {/* Botones */}
             <button
-              onClick={() => setPiso3View("modelo")}
+              onClick={() => handlePiso3ViewChange("modelo")}
               className={`relative z-10 px-6 py-2 rounded-full font-medium transition-colors duration-300 ${
                 piso3View === "modelo"
                   ? "text-white"
@@ -55,7 +101,7 @@ function BibliotecaSection() {
             </button>
 
             <button
-              onClick={() => setPiso3View("contenedor")}
+              onClick={() => handlePiso3ViewChange("contenedor")}
               className={`relative z-10 px-6 py-2 rounded-full font-medium transition-colors duration-300 ${
                 piso3View === "contenedor"
                   ? "text-white"
@@ -65,6 +111,24 @@ function BibliotecaSection() {
               Contenedores
             </button>
           </div>
+        </div>
+      )}
+
+      {piso === 3 && piso3View === "contenedor" && (
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {contenedorCodigos.map((codigo) => (
+            <button
+              key={codigo}
+              onClick={() => setContenedor(codigo)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                contenedor === codigo
+                  ? "bg-red-jamar text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              {codigo}
+            </button>
+          ))}
         </div>
       )}
 
@@ -101,26 +165,15 @@ function BibliotecaSection() {
             <div className="flex justify-center bg-red-400 rounded-2xl py-2 px-4 w-fit">
               <p className="text-white">
                 En total hay{" "}
-                <span className="font-bold">
-                  {
-                    modelos.filter(
-                      (modelo) => modelo.tipo === piso3View || piso !== 3,
-                    ).length
-                  }
-                </span>{" "}
+                <span className="font-bold">{modelosFiltrados.length}</span>{" "}
                 modelos en este piso.
               </p>
             </div>
           </div>
           <div className="grid grid-cols-2 w-full gap-4 mb-8 md:grid-cols-5">
-            {modelos
-              .filter((modelo) => modelo.tipo === piso3View || piso !== 3)
-              .filter((modelo) =>
-                modelo.nombre.toLowerCase().includes(searchTerm.toLowerCase()),
-              )
-              .map((modelo) => (
-                <CardModelo key={modelo.id} modelo={modelo} />
-              ))}
+            {modelosFiltrados.map((modelo) => (
+              <CardModelo key={modelo.id} modelo={modelo} />
+            ))}
             {modelos.length === 0 && (
               <p className="col-span-full text-center text-gray-500 mt-8">
                 No hay modelos disponibles en este piso.

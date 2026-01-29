@@ -1,13 +1,16 @@
-import Link from "next/link";
 import { CaretLeftIcon } from "@phosphor-icons/react/dist/ssr";
 
-function BotonVolver({ href = "./" }) {
+function BotonVolver() {
+  const handleVolver = () => {
+    window.history.back();
+  };
+
   return (
-    <Link href={href} className="w-fit mb-4">
-      <div className="bg-gray-200/60 w-12 h-12 flex items-center justify-center rounded-full text-gray-400 underline">
+    <button onClick={handleVolver} className="w-fit mb-4 cursor-pointer">
+      <div className="bg-gray-200/60 w-12 h-12 flex items-center justify-center rounded-full text-gray-400 hover:bg-gray-300/60 transition-colors">
         <CaretLeftIcon size={30} className="inline" />
       </div>
-    </Link>
+    </button>
   );
 }
 

@@ -16,6 +16,7 @@ function NuevoModelo() {
     link: "",
     piso: "",
     tipo: "",
+    contenedor: "",
   });
 
   const onSubmit = async (e) => {
@@ -33,6 +34,7 @@ function NuevoModelo() {
         link: formData.link,
         piso: Number(formData.piso),
         tipo: formData.tipo || "modelo",
+        contenedor: formData.contenedor || null,
       },
     ]);
 
@@ -47,6 +49,7 @@ function NuevoModelo() {
         link: "",
         piso: "",
         tipo: "",
+        contenedor: "",
       });
     }
   };
@@ -118,6 +121,17 @@ function NuevoModelo() {
                 <label htmlFor="tipo">Contenedor</label>
               </div>
             )}
+
+            {formData.piso === "3" && formData.tipo === "contenedor" && (
+              <InputField
+                placeholder={"Número de contenedor"}
+                value={formData.contenedor}
+                onChange={(e) =>
+                  setFormData({ ...formData, contenedor: e.target.value })
+                }
+              />
+            )}
+
             <button
               type="submit"
               className="btn-primario bg-red-jamar text-white"
