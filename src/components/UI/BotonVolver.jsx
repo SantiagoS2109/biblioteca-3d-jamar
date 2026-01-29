@@ -1,3 +1,5 @@
+﻿"use client";
+
 import { CaretLeftIcon } from "@phosphor-icons/react/dist/ssr";
 
 function BotonVolver() {
