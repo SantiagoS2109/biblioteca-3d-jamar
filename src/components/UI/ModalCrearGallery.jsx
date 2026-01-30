@@ -8,6 +8,7 @@ import {
   UploadIcon,
   ImageIcon,
 } from "@phosphor-icons/react/dist/ssr";
+import toast from "react-hot-toast";
 
 function ModalCrearGallery({
   isOpen,
@@ -179,6 +180,7 @@ function ModalCrearGallery({
       alert("Error al crear la galería. Por favor intenta de nuevo.");
     } finally {
       setUploading(false);
+      toast.success("Galería creada exitosamente");
     }
   };
 
