@@ -53,7 +53,7 @@ function NavBarSection() {
       ([entry]) => {
         setHasShadow(!entry.isIntersecting);
       },
-      { threshold: 0 }
+      { threshold: 0 },
     );
 
     const target = document.querySelector("#top-anchor");
@@ -109,7 +109,7 @@ function NavBarSection() {
 
         {/* Menu */}
         <div
-          className={`bg-background supports-[backdrop-filter]:bg-background/80 absolute top-15 left-0 flex w-full flex-col items-center gap-4 rounded-b-3xl p-4 transition-transform duration-300 md:flex-row md:bg-transparent md:w-fit
+          className={`bg-background supports-[backdrop-filter]:bg-background/80 absolute top-9 left-0 flex w-full flex-col items-center gap-4 rounded-b-3xl p-4 transition-transform duration-300 md:flex-row md:bg-transparent md:w-fit
           ${
             isOpen ? "translate-y-9" : "-translate-y-124"
           } shadow-md md:static md:translate-y-0 md:items-center md:shadow-none`}
