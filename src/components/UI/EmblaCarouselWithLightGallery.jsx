@@ -71,7 +71,7 @@ const EmblaCarouselWithLightGallery = (props) => {
                 if (currentSlide) {
                   downloadImage(
                     currentSlide.image,
-                    `modelo-${currentSlide.orden || currentSlide.id}.png`
+                    `modelo-${currentSlide.orden || currentSlide.id}.png`,
                   );
                 }
               });
@@ -172,7 +172,7 @@ const EmblaCarouselWithLightGallery = (props) => {
                 key={index}
                 onClick={() => onDotButtonClick(index)}
                 className={"embla__dot".concat(
-                  index === selectedIndex ? " embla__dot--selected" : ""
+                  index === selectedIndex ? " embla__dot--selected" : "",
                 )}
               />
             ))}

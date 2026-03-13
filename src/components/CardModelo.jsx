@@ -9,7 +9,7 @@ function CardModelo({ modelo }) {
     "https://xadmunjbkvgnhlswupdv.supabase.co/storage/v1/object/public/";
 
   const { modeloImagenes, loadingImagenes } = useFetchModeloImagenesByID(
-    modelo.id
+    modelo.id,
   );
 
   return (
@@ -44,8 +44,22 @@ function CardModelo({ modelo }) {
         </div>
 
         {!modelo.link && (
-          <div className="absolute w-10 h-10 bg-red-300 bottom-2 right-2 rounded-full">
+          <div
+            className={
+              "absolute w-10 h-10 bg-red-300 bottom-2 " +
+              (modelo.retopologia === "SI" ? "right-26" : "right-2 ") +
+              " rounded-full"
+            }
+          >
             <LinkBreakIcon className="w-6 h-6 m-2 text-red-jamar" />
+          </div>
+        )}
+
+        {modelo.retopologia === "SI" && (
+          <div className="absolute bg-orange-200 bottom-2 right-2 rounded-full">
+            <p className="text-orange-500 font-bold text-xs flex items-center justify-center p-2 italic">
+              Retopología
+            </p>
           </div>
         )}
       </div>
