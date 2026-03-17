@@ -12,15 +12,19 @@ function CardModelo({ modelo }) {
     modelo.id,
   );
 
+  const handleButtonClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <Link
-      className="min-h-[260px] "
       href={`/producto/${modelo.id}`}
-      rel="noopener noreferrer"
+      className="flex flex-col bg-gray-100 border border-gray-200 rounded-xl overflow-hidden cursor-pointer transition-all duration-150 hover:border-gray-300 hover:-translate-y-px h-full"
     >
-      <div className="relative flex flex-col gap-2 bg-gray-200/70 h-full p-4 rounded-xl transition-all cursor-pointer hover:shadow-lg hover:scale-101">
+      {/* Imagen del modelo */}
+      <div className="relative w-full h-[180px] flex items-center justify-center">
         {loadingImagenes ? (
-          <div className="flex items-center justify-center h-full">
+          <div className="flex items-center justify-center h-full w-full">
             <Spinner />
           </div>
         ) : (
@@ -31,37 +35,63 @@ function CardModelo({ modelo }) {
                 : "/img/no-encontrado.png"
             }
             alt={modelo.nombre}
-            width={200}
-            height={200}
-            className="w-full rounded-md"
+            width={800}
+            height={800}
+            className="w-full h-full object-contain"
             loading="lazy"
           />
         )}
 
-        <div className="h-full flex flex-col justify-between gap-2">
-          <p className="font-bold leading-4.5">{modelo.nombre}</p>
-          <p className="italic text-red-500">{modelo.codigo}</p>
-        </div>
-
-        {!modelo.link && (
-          <div
-            className={
-              "absolute w-10 h-10 bg-red-300 bottom-2 " +
-              (modelo.retopologia === "SI" ? "right-26" : "right-2 ") +
-              " rounded-full"
-            }
-          >
-            <LinkBreakIcon className="w-6 h-6 m-2 text-red-jamar" />
-          </div>
-        )}
+        {/* Badge "Retopología" */}
 
         {modelo.retopologia === "SI" && (
-          <div className="absolute bg-orange-200 bottom-2 right-2 rounded-full">
-            <p className="text-orange-500 font-bold text-xs flex items-center justify-center p-2 italic">
-              Retopología
-            </p>
-          </div>
+          <span className="absolute top-2 right-2 text-xs font-medium px-2 py-0.5 rounded-full bg-green-100 text-green-800">
+            Retopología
+          </span>
         )}
+
+        {/* Badge "No Link" */}
+        {!modelo.link && (
+          <span
+            className={`absolute ${modelo.retopologia !== null ? "top-8" : "top-2"} right-2 font-medium px-2 py-0.5 rounded-full bg-red-100 text-red-800`}
+          >
+            <LinkBreakIcon size={18} />
+          </span>
+        )}
+      </div>
+
+      {/* Información del modelo */}
+
+      <div className="px-3 py-2.5 flex-grow">
+        <p className="text-sm font-medium text-gray-900 ">{modelo.nombre}</p>
+        <p className="text-xs text-gray-400 flex items-center gap-1.5 mt-1">
+          <span>{modelo.categoria}</span>
+          <span>·</span>
+          <span>{modelo.codigo}</span>
+        </p>
+      </div>
+
+      {/* Acciones */}
+
+      <div className="px-3 py-5 border-t border-gray-200 flex gap-4 ">
+        {/* Botón secundario */}
+        <Link
+          href={modelo.link || "#"}
+          target={modelo.link ? "_blank" : undefined}
+          onClick={handleButtonClick}
+          className="flex-1 flex items-center justify-center gap-1 py-1.5 text-xs text-gray-500 border border-red-jamar rounded-lg hover:bg-red-jamar hover:text-white transition-colors duration-150 font-medium"
+        >
+          Descargar 3D
+        </Link>
+        {/*  Botón primario */}
+        <Link
+          href={`/producto/${modelo.id}`}
+          rel="noopener noreferrer"
+          onClick={handleButtonClick}
+          className="flex-1 flex items-center justify-center py-1.5 text-xs text-gray-500 rounded-lg border border-red-jamar hover:bg-red-jamar hover:text-white transition-colors duration-150 font-medium"
+        >
+          Ver
+        </Link>
       </div>
     </Link>
   );

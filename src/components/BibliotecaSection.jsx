@@ -170,15 +170,18 @@ function BibliotecaSection() {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-2 w-full gap-4 mb-8 md:grid-cols-5">
-            {modelosFiltrados.map((modelo) => (
-              <CardModelo key={modelo.id} modelo={modelo} />
-            ))}
-            {modelos.length === 0 && (
-              <p className="col-span-full text-center text-gray-500 mt-8">
-                No hay modelos disponibles en este piso.
-              </p>
-            )}
+
+          <div className="w-full">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
+              {modelosFiltrados.map((modelo) => (
+                <CardModelo key={modelo.id} modelo={modelo} />
+              ))}
+              {modelos.length === 0 && (
+                <p className="col-span-full text-center text-gray-500 mt-8">
+                  No hay modelos disponibles en este piso.
+                </p>
+              )}
+            </div>
           </div>
         </>
       )}
