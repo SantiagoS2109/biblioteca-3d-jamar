@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useFetchModelos } from "../hooks/useFetchModelos";
+import { useFetchSearchModelos } from "../hooks/useFetchSearchModelos";
 import CardModelo from "./CardModelo";
 import NavButtonsBiblioteca from "./NavButtonsBiblioteca";
 import Spinner from "./UI/Spinner";
@@ -43,6 +44,8 @@ function BibliotecaSection() {
   };
 
   const { modelos, loading } = useFetchModelos(piso, piso3View);
+  const { modelos: modelosBusqueda, loading: loadingBusqueda } =
+    useFetchSearchModelos(piso, searchTerm, piso3View);
 
   const descripcionPiso = {
     1: "Modelos social, dormitorio, sofás, comedores y más.",
@@ -54,17 +57,36 @@ function BibliotecaSection() {
     new Set(modelos.map((m) => m.contenedor).filter(Boolean)),
   );
 
-  const modelosFiltrados = modelos
-    .filter((m) => (piso !== 3 ? true : m.tipo === piso3View))
-    .filter((m) => {
-      if (piso !== 3) return true;
-      if (piso3View === "contenedor") {
-        if (!contenedor) return true;
-        return m.contenedor === contenedor;
-      }
-      return true; // piso3View === 'modelo'
-    })
-    .filter((m) => m.nombre.toLowerCase().includes(searchTerm.toLowerCase()));
+  // Si hay búsqueda activa, usar los resultados de Supabase
+  let modelosFiltrados = [];
+  let loadingActual = loading;
+
+  if (searchTerm.trim()) {
+    // Cuando hay búsqueda, filtrar los resultados por piso3View y contenedor si es necesario
+    modelosFiltrados = modelosBusqueda
+      .filter((m) => (piso !== 3 ? true : m.tipo === piso3View))
+      .filter((m) => {
+        if (piso !== 3) return true;
+        if (piso3View === "contenedor") {
+          if (!contenedor) return true;
+          return m.contenedor === contenedor;
+        }
+        return true;
+      });
+    loadingActual = loadingBusqueda;
+  } else {
+    // Si no hay búsqueda, mostrar todos los modelos con los filtros normales
+    modelosFiltrados = modelos
+      .filter((m) => (piso !== 3 ? true : m.tipo === piso3View))
+      .filter((m) => {
+        if (piso !== 3) return true;
+        if (piso3View === "contenedor") {
+          if (!contenedor) return true;
+          return m.contenedor === contenedor;
+        }
+        return true;
+      });
+  }
 
   return (
     <section
@@ -134,7 +156,7 @@ function BibliotecaSection() {
 
       {/* Aquí se mapearían los modelos 3D basados en el estado 'piso' */}
 
-      {loading ? (
+      {loadingActual ? (
         <div className="flex items-center justify-center w-full mt-24">
           <Spinner />
         </div>
@@ -174,9 +196,9 @@ function BibliotecaSection() {
           <div className="w-full">
             <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
               {modelosFiltrados.map((modelo) => (
-                <CardModelo key={modelo.id} modelo={modelo} />
+                <CardModelo key={modelo.id} modelo={modelo} piso={piso} />
               ))}
-              {modelos.length === 0 && (
+              {modelosFiltrados.length === 0 && (
                 <p className="col-span-full text-center text-gray-500 mt-8">
                   No hay modelos disponibles en este piso.
                 </p>

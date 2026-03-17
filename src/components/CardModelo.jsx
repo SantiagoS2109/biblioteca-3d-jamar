@@ -4,7 +4,7 @@ import { LinkBreakIcon } from "@phosphor-icons/react/dist/ssr";
 import { useFetchModeloImagenesByID } from "../hooks/useFetchModeloImagenesByID";
 import Spinner from "./UI/Spinner";
 
-function CardModelo({ modelo }) {
+function CardModelo({ modelo, piso }) {
   const URL =
     "https://xadmunjbkvgnhlswupdv.supabase.co/storage/v1/object/public/";
 
@@ -15,6 +15,8 @@ function CardModelo({ modelo }) {
   const handleButtonClick = (e) => {
     e.stopPropagation();
   };
+
+  console.log("piso:", piso);
 
   return (
     <Link
@@ -65,8 +67,8 @@ function CardModelo({ modelo }) {
       <div className="px-3 py-2.5 flex-grow">
         <p className="text-sm font-medium text-gray-900 ">{modelo.nombre}</p>
         <p className="text-xs text-gray-400 flex items-center gap-1.5 mt-1">
-          <span>{modelo.categoria}</span>
-          <span>·</span>
+          {piso !== 3 && <span>{modelo.categoria}</span>}
+          {piso !== 3 && <span>·</span>}
           <span>{modelo.codigo}</span>
         </p>
       </div>
