@@ -16,8 +16,6 @@ function CardModelo({ modelo, piso }) {
     e.stopPropagation();
   };
 
-  console.log("piso:", piso);
-
   return (
     <Link
       href={`/producto/${modelo.id}`}
@@ -77,23 +75,23 @@ function CardModelo({ modelo, piso }) {
 
       <div className="px-3 py-5 border-t border-gray-200 flex gap-4 ">
         {/* Botón secundario */}
-        <Link
+        <button
           href={modelo.link || "#"}
           target={modelo.link ? "_blank" : undefined}
           onClick={handleButtonClick}
-          className="flex-1 flex items-center justify-center gap-1 py-1.5 text-xs text-gray-500 border border-red-jamar rounded-lg hover:bg-red-jamar hover:text-white transition-colors duration-150 font-medium"
+          className="flex-1 flex items-center justify-center gap-1 py-1.5 text-xs text-gray-500 border border-red-jamar rounded-lg hover:bg-red-jamar hover:text-white transition-colors duration-150 font-medium cursor-pointer"
         >
           Descargar 3D
-        </Link>
+        </button>
         {/*  Botón primario */}
-        <Link
+        <button
           href={`/producto/${modelo.id}`}
           rel="noopener noreferrer"
           onClick={handleButtonClick}
-          className="flex-1 flex items-center justify-center py-1.5 text-xs text-gray-500 rounded-lg border border-red-jamar hover:bg-red-jamar hover:text-white transition-colors duration-150 font-medium"
+          className="flex-1 flex items-center justify-center py-1.5 text-xs text-gray-500 rounded-lg border border-red-jamar hover:bg-red-jamar hover:text-white transition-colors duration-150 font-medium cursor-pointer"
         >
           Ver
-        </Link>
+        </button>
       </div>
     </Link>
   );
