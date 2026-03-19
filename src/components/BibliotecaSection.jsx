@@ -37,16 +37,16 @@ function BibliotecaSection() {
   const searchParams = useSearchParams();
 
   const [pisoActivo, setPisoActivo] = useState(1);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [piso3View, setPiso3View] = useState("modelo");
-
   const [contenedor, setContenedor] = useState("3866");
+  const [filtroCategoria, setFiltroCategoria] = useState("");
 
   // Sincronizar el estado con la URL
   useEffect(() => {
     const pisoFromUrl = searchParams.get("piso");
     const piso3ViewFromUrl = searchParams.get("view");
+    const categoriaFromUrl = searchParams.get("categoria");
 
     if (pisoFromUrl) {
       setPisoActivo(parseInt(pisoFromUrl, 10));
@@ -54,11 +54,15 @@ function BibliotecaSection() {
     if (piso3ViewFromUrl) {
       setPiso3View(piso3ViewFromUrl);
     }
+    if (categoriaFromUrl) {
+      setFiltroCategoria(categoriaFromUrl);
+    }
   }, [searchParams]);
 
   // Actualizar la URL cuando cambia el piso (sin recargar la página)
   const handlePisoChange = (newPiso) => {
     setPisoActivo(newPiso);
+    setFiltroCategoria("");
     window.history.pushState(null, "", `?piso=${newPiso}`);
   };
 
@@ -83,14 +87,18 @@ function BibliotecaSection() {
   if (searchTerm.trim()) {
     // Cuando hay búsqueda, filtrar los resultados por piso3View y contenedor si es necesario
     modelosFiltrados = modelosBusqueda
-      .filter((m) => (pisoActual !== 3 ? true : m.tipo === piso3View))
+      .filter((m) => (pisoActivo !== 3 ? true : m.tipo === piso3View))
       .filter((m) => {
-        if (pisoActual !== 3) return true;
+        if (pisoActivo !== 3) return true;
         if (piso3View === "contenedor") {
           if (!contenedor) return true;
           return m.contenedor === contenedor;
         }
         return true;
+      })
+      .filter((m) => {
+        if (!filtroCategoria) return true;
+        return m.categoria === filtroCategoria;
       });
     loadingActual = loadingBusqueda;
   } else {
@@ -104,6 +112,10 @@ function BibliotecaSection() {
           return m.contenedor === contenedor;
         }
         return true;
+      })
+      .filter((m) => {
+        if (!filtroCategoria) return true;
+        return m.categoria === filtroCategoria;
       });
   }
 
@@ -112,7 +124,17 @@ function BibliotecaSection() {
   );
 
   const handleCategoriaChange = (categoria) => {
-    setSearchTerm(categoria);
+    setFiltroCategoria(categoria);
+    window.history.pushState(
+      null,
+      "",
+      `?piso=${pisoActivo}&categoria=${categoria}`,
+    );
+  };
+
+  const limpiarFiltroCategoria = () => {
+    setFiltroCategoria("");
+    window.history.pushState(null, "", `?piso=${pisoActivo}`);
   };
 
   const colorPaleta = [
@@ -141,88 +163,87 @@ function BibliotecaSection() {
 
           <div className="flex-1 flex flex-col overflow-hidden">
             <div className="flex-1 overflow-y-auto pr-2">
-
-            {/* Selección de Piso */}
-            <div className="mb-8">
-              <p className="text-sm font-medium text-gray-600 mb-3">Pisos</p>
-              <div className="flex flex-col gap-2">
-                {pisos.map((piso) => (
-                  <SidebarItem
-                    key={piso.id}
-                    dot={pisoActivo === piso.id ? "#E8401C" : "#B4B2A9"}
-                    label={`Piso ${piso.id}`}
-                    active={pisoActivo === piso.id}
-                    onClick={() => handlePisoChange(piso.id)}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Filtros para Piso 3 */}
-            {pisoActivo === 3 && (
-              <>
-                <div className="mb-6 pb-6 border-b border-gray-200">
-                  <p className="text-sm font-medium text-gray-600 mb-3">
-                    Vista
-                  </p>
-                  <div className="flex flex-col gap-2">
-                    <SidebarItem
-                      label="Modelos"
-                      active={piso3View === "modelo"}
-                      dot={piso3View === "modelo" ? "#E8401C" : "#B4B2A9"}
-                      onClick={() => handlePiso3ViewChange("modelo")}
-                    />
-
-                    <SidebarItem
-                      label="Contenedores"
-                      active={piso3View === "contenedor"}
-                      dot={piso3View === "contenedor" ? "#E8401C" : "#B4B2A9"}
-                      onClick={() => handlePiso3ViewChange("contenedor")}
-                    />
-                  </div>
-                </div>
-
-                {/* Filtro de Contenedores */}
-                {piso3View === "contenedor" && (
-                  <div>
-                    <p className="text-sm font-medium text-gray-600 mb-3">
-                      Contenedores
-                    </p>
-                    <div className="flex flex-col gap-2 max-h-64 overflow-y-auto">
-                      {contenedorCodigos.map((codigo) => (
-                        <SidebarItem
-                          key={codigo}
-                          label={codigo}
-                          dot={contenedor === codigo ? "#E8401C" : "#B4B2A9"}
-                          active={contenedor === codigo}
-                          onClick={() => setContenedor(codigo)}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-
-            {/* Selección de Categorias */}
-            {pisoActivo !== 3 && (
+              {/* Selección de Piso */}
               <div className="mb-8">
-                <p className="text-sm font-medium text-gray-600 mb-3">
-                  Categorías
-                </p>
-                <div className="flex flex-col gap-2 overflow-y-auto max-h-96">
-                  {categoriasDisponibles.map((categoria) => (
+                <p className="text-sm font-medium text-gray-600 mb-3">Pisos</p>
+                <div className="flex flex-col gap-2">
+                  {pisos.map((piso) => (
                     <SidebarItem
-                      key={categoria}
-                      label={categoria}
-                      dot={getCategoryColor(categoria, categoriasDisponibles)}
-                      active={searchTerm === categoria}
-                      onClick={() => handleCategoriaChange(categoria)}
+                      key={piso.id}
+                      dot={pisoActivo === piso.id ? "#E8401C" : "#B4B2A9"}
+                      label={`Piso ${piso.id}`}
+                      active={pisoActivo === piso.id}
+                      onClick={() => handlePisoChange(piso.id)}
                     />
                   ))}
                 </div>
               </div>
-            )}
+
+              {/* Filtros para Piso 3 */}
+              {pisoActivo === 3 && (
+                <>
+                  <div className="mb-6 pb-6 border-b border-gray-200">
+                    <p className="text-sm font-medium text-gray-600 mb-3">
+                      Vista
+                    </p>
+                    <div className="flex flex-col gap-2">
+                      <SidebarItem
+                        label="Modelos"
+                        active={piso3View === "modelo"}
+                        dot={piso3View === "modelo" ? "#E8401C" : "#B4B2A9"}
+                        onClick={() => handlePiso3ViewChange("modelo")}
+                      />
+
+                      <SidebarItem
+                        label="Contenedores"
+                        active={piso3View === "contenedor"}
+                        dot={piso3View === "contenedor" ? "#E8401C" : "#B4B2A9"}
+                        onClick={() => handlePiso3ViewChange("contenedor")}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Filtro de Contenedores */}
+                  {piso3View === "contenedor" && (
+                    <div>
+                      <p className="text-sm font-medium text-gray-600 mb-3">
+                        Contenedores
+                      </p>
+                      <div className="flex flex-col gap-2 max-h-64 overflow-y-auto">
+                        {contenedorCodigos.map((codigo) => (
+                          <SidebarItem
+                            key={codigo}
+                            label={codigo}
+                            dot={contenedor === codigo ? "#E8401C" : "#B4B2A9"}
+                            active={contenedor === codigo}
+                            onClick={() => setContenedor(codigo)}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* Selección de Categorias */}
+              {pisoActivo !== 3 && (
+                <div className="mb-8">
+                  <p className="text-sm font-medium text-gray-600 mb-3">
+                    Categorías
+                  </p>
+                  <div className="flex flex-col gap-2 overflow-y-auto max-h-96">
+                    {categoriasDisponibles.map((categoria) => (
+                      <SidebarItem
+                        key={categoria}
+                        label={categoria}
+                        dot={getCategoryColor(categoria, categoriasDisponibles)}
+                        active={searchTerm === categoria}
+                        onClick={() => handleCategoriaChange(categoria)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -283,12 +304,23 @@ function BibliotecaSection() {
           </div>
 
           {/* Contador de resultados */}
-          <div className="mb-6 flex items-center justify-between">
+          <div className="mb-6 flex items-center gap-3">
             <div className="bg-red-100 text-red-700 px-4 py-2 rounded-lg text-sm font-medium">
               {modelosFiltrados.length} modelo
               {modelosFiltrados.length !== 1 ? "s" : ""} encontrado
               {modelosFiltrados.length !== 1 ? "s" : ""}
             </div>
+            {filtroCategoria && (
+              <div className="bg-orange-100 text-orange-700 px-3 py-2 rounded-full text-sm font-medium flex items-center gap-2">
+                <span>{filtroCategoria}</span>
+                <button
+                  onClick={limpiarFiltroCategoria}
+                  className="hover:text-orange-900 font-bold cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Grid de modelos */}
