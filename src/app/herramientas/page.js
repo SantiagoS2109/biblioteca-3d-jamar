@@ -106,14 +106,14 @@ function HerramientasPage() {
     {
       nombrePlataforma: "Higgsfield",
       plataforma: "https://higgsfield.ai/",
-      usuario: "",
-      credenciales: "",
+      usuario: "admin3@jamar.com",
+      credenciales: "Samsung9090**",
     },
     {
       nombrePlataforma: "Higgsfield",
       plataforma: "https://higgsfield.ai/",
-      usuario: "",
-      credenciales: "",
+      usuario: "admin4@jamar.com",
+      credenciales: "Samsung9090**",
     },
     {
       nombrePlataforma: "3D Sky Free",
