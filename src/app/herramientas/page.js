@@ -95,7 +95,7 @@ function HerramientasPage() {
       nombrePlataforma: "Higgsfield",
       plataforma: "https://higgsfield.ai/",
       usuario: "injousejamar@gmail.com",
-      credenciales: "InJouse2025*",
+      credenciales: "InJouse2025**",
     },
     {
       nombrePlataforma: "Higgsfield",
